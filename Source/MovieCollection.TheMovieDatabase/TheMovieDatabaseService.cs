@@ -1012,7 +1012,7 @@
         /// Get all of the episode groups that have been created for a TV show. See remarks.
         /// </summary>
         /// <remarks>
-        /// With a groupId you can call <see cref="GetTVEpisodeGroupDetailsAsync"/> the method.
+        /// With a groupId you can call the <see cref="GetTVShowEpisodeGroupsDetailsAsync(string)"/> method.
         /// </remarks>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
