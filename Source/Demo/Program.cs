@@ -31,6 +31,8 @@ Start:
             Console.WriteLine("5. Get Movie Recommendations");
             Console.WriteLine("6. Get TV Show Recommendations");
             Console.WriteLine("7. Get Collection Details");
+            Console.WriteLine("8. Get Person Movie Credits");
+            Console.WriteLine("9. Get Person TV Show Credits");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -60,6 +62,12 @@ Start:
                     break;
                 case 7:
                     await GetCollectionDetailsAsync();
+                    break;
+                case 8:
+                    await GetPersonMovieCredits();
+                    break;
+                case 9:
+                    await GetPersonTVShowCredits();
                     break;
             }
 
@@ -163,6 +171,58 @@ Start:
                 Console.WriteLine("\n- Title: {0}", part.Title);
                 Console.WriteLine("- ReleaseDate: {0}", part.ReleaseDate);
                 Console.WriteLine("- Overview: {0}", part.Overview);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        private static async Task GetPersonMovieCredits()
+        {
+            // Cate Blanchett
+            var result = await _service.GetPersonMovieCredits(112);
+
+            Console.WriteLine("- As Cast:");
+            
+            foreach (var item in result.Cast)
+            {
+                Console.WriteLine("Title: {0}", item.Title);
+                Console.WriteLine("Character: {0}", item.Character);
+                Console.WriteLine("******************************");
+            }
+            
+            Console.WriteLine("\n- As Crew:\n");
+            
+            foreach (var item in result.Crew)
+            {
+                Console.WriteLine("Title: {0}", item.Title);
+                Console.WriteLine("Job: {0}", item.Job);
+                Console.WriteLine("Department: {0}", item.Department);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        private static async Task GetPersonTVShowCredits()
+        {
+            // Phoebe Waller-Bridge
+            var result = await _service.GetPersonTVShowCredits(1023483);
+
+            Console.WriteLine("- As Cast:");
+            
+            foreach (var item in result.Cast)
+            {
+                Console.WriteLine("Name: {0}", item.Name);
+                Console.WriteLine("Character: {0}", item.Character);
+                Console.WriteLine("EpisodeCount: {0}", item.EpisodeCount);
+                Console.WriteLine("******************************");
+            }
+
+            Console.WriteLine("\n- As Crew:\n");
+            
+            foreach (var item in result.Crew)
+            {
+                Console.WriteLine("Name: {0}", item.Name);
+                Console.WriteLine("Job: {0}", item.Job);
+                Console.WriteLine("Department: {0}", item.Department);
+                Console.WriteLine("EpisodeCount: {0}", item.EpisodeCount);
                 Console.WriteLine("******************************");
             }
         }

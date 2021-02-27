@@ -689,8 +689,29 @@
         }
 
         // TODO: People: GetPersonChanges
-        // TODO: People: GetPersonMovieCredits
-        // TODO: People: GetPersonTVShowCredits
+
+        /// <summary>
+        /// Get the movie credits for a person.
+        /// </summary>
+        /// <param name="personId">Id of the person.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PersonMovieCredits> GetPersonMovieCredits(int personId)
+        {
+            return await GetJsonAsync<PersonMovieCredits>($"/person/{personId}/movie_credits")
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the TV show credits for a person.
+        /// </summary>
+        /// <param name="personId">Id of the person.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PersonTVShowCredits> GetPersonTVShowCredits(int personId)
+        {
+            return await GetJsonAsync<PersonTVShowCredits>($"/person/{personId}/tv_credits")
+                .ConfigureAwait(false);
+        }
+
         // TODO: People: GetPersonCombinedCredits
 
         /// <summary>
