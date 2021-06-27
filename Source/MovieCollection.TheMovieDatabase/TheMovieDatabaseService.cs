@@ -69,7 +69,7 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<CertificationsResult> GetMovieCertificationsAsync()
         {
-            return await GetJsonAsync<CertificationsResult>($"/certification/movie/list")
+            return await GetJsonAsync<CertificationsResult>("/certification/movie/list")
                 .ConfigureAwait(false);
         }
 
@@ -79,7 +79,7 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<CertificationsResult> GetTVShowCertificationsAsync()
         {
-            return await GetJsonAsync<CertificationsResult>($"/certification/tv/list")
+            return await GetJsonAsync<CertificationsResult>("/certification/tv/list")
                 .ConfigureAwait(false);
         }
 
@@ -695,7 +695,7 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonMovieCredits> GetPersonMovieCredits(int personId)
+        public async Task<PersonMovieCredits> GetPersonMovieCreditsAsync(int personId)
         {
             return await GetJsonAsync<PersonMovieCredits>($"/person/{personId}/movie_credits")
                 .ConfigureAwait(false);
@@ -706,7 +706,7 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonTVShowCredits> GetPersonTVShowCredits(int personId)
+        public async Task<PersonTVShowCredits> GetPersonTVShowCreditsAsync(int personId)
         {
             return await GetJsonAsync<PersonTVShowCredits>($"/person/{personId}/tv_credits")
                 .ConfigureAwait(false);

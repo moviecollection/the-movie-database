@@ -14,7 +14,7 @@
     <PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
-        <NoWarn>NU5105;CA1303;SA1309;SA1101;CS1591;SA1633;CA1055;CA2227</NoWarn>
+        <NoWarn>NU5105;CA1303;SA1309;SA1101;CS1591;SA1633;CA1055;CA2227;IDE0065</NoWarn>
     </PropertyGroup>
 
     <!--
@@ -29,7 +29,7 @@
     -->
 
     <PropertyGroup>
-        <Version>1.0.0-preview.2</Version>
+        <Version>1.0.0-preview.3</Version>
         <Authors>Peyman Mohammadi</Authors>
         <Copyright>© 2020 Peyman Mohammadi</Copyright>
         <PackageId>MovieCollection.TheMovieDatabase</PackageId>

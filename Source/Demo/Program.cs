@@ -64,10 +64,10 @@ Start:
                     await GetCollectionDetailsAsync();
                     break;
                 case 8:
-                    await GetPersonMovieCredits();
+                    await GetPersonMovieCreditsAsync();
                     break;
                 case 9:
-                    await GetPersonTVShowCredits();
+                    await GetPersonTVShowCreditsAsync();
                     break;
             }
 
@@ -175,22 +175,22 @@ Start:
             }
         }
 
-        private static async Task GetPersonMovieCredits()
+        private static async Task GetPersonMovieCreditsAsync()
         {
             // Cate Blanchett
-            var result = await _service.GetPersonMovieCredits(112);
+            var result = await _service.GetPersonMovieCreditsAsync(112);
 
             Console.WriteLine("- As Cast:");
-            
+
             foreach (var item in result.Cast)
             {
                 Console.WriteLine("Title: {0}", item.Title);
                 Console.WriteLine("Character: {0}", item.Character);
                 Console.WriteLine("******************************");
             }
-            
+
             Console.WriteLine("\n- As Crew:\n");
-            
+
             foreach (var item in result.Crew)
             {
                 Console.WriteLine("Title: {0}", item.Title);
@@ -200,13 +200,13 @@ Start:
             }
         }
 
-        private static async Task GetPersonTVShowCredits()
+        private static async Task GetPersonTVShowCreditsAsync()
         {
             // Phoebe Waller-Bridge
-            var result = await _service.GetPersonTVShowCredits(1023483);
+            var result = await _service.GetPersonTVShowCreditsAsync(1023483);
 
             Console.WriteLine("- As Cast:");
-            
+
             foreach (var item in result.Cast)
             {
                 Console.WriteLine("Name: {0}", item.Name);
@@ -216,7 +216,7 @@ Start:
             }
 
             Console.WriteLine("\n- As Crew:\n");
-            
+
             foreach (var item in result.Crew)
             {
                 Console.WriteLine("Name: {0}", item.Name);
