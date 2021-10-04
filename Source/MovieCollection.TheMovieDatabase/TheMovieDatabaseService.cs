@@ -712,7 +712,16 @@
                 .ConfigureAwait(false);
         }
 
-        // TODO: People: GetPersonCombinedCredits
+        /// <summary>
+        /// Get the movie and TV show credits together in a single response.
+        /// </summary>
+        /// <param name="personId">Id of the person.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PersonCombinedCredits> GetPersonCombinedCreditsAsync(int personId)
+        {
+            return await GetJsonAsync<PersonCombinedCredits>($"/person/{personId}/combined_credits")
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Get the external ids for a person. We currently support the following external sources.

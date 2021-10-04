@@ -33,6 +33,7 @@ Start:
             Console.WriteLine("7. Get Collection Details");
             Console.WriteLine("8. Get Person Movie Credits");
             Console.WriteLine("9. Get Person TV Show Credits");
+            Console.WriteLine("10. Get Person Combined Credits");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -68,6 +69,9 @@ Start:
                     break;
                 case 9:
                     await GetPersonTVShowCreditsAsync();
+                    break;
+                case 10:
+                    await GetPersonCombinedCreditsAsync();
                     break;
             }
 
@@ -223,6 +227,31 @@ Start:
                 Console.WriteLine("Job: {0}", item.Job);
                 Console.WriteLine("Department: {0}", item.Department);
                 Console.WriteLine("EpisodeCount: {0}", item.EpisodeCount);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        private static async Task GetPersonCombinedCreditsAsync()
+        {
+            // Benedict Cumberbatch
+            var result = await _service.GetPersonCombinedCreditsAsync(71580);
+
+            foreach (var item in result.Cast)
+            {
+                if (item.MediaType == "movie")
+                {
+                    Console.WriteLine("Title: {0}", item.Title);
+                    Console.WriteLine("ReleaseDate: {0}", item.ReleaseDate);
+                }
+                else
+                {
+                    Console.WriteLine("Name: {0}", item.Name);
+                    Console.WriteLine("FirstAirDate: {0}", item.FirstAirDate);
+                    Console.WriteLine("EpisodeCount: {0}", item.EpisodeCount);
+                }
+
+                Console.WriteLine("MediaType: {0}", item.MediaType);
+                Console.WriteLine("Character: {0}", item.Character);
                 Console.WriteLine("******************************");
             }
         }
