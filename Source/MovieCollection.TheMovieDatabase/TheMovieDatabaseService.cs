@@ -196,17 +196,41 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<PagedResult<Movie>> DiscoverMoviesAsync(int? primaryReleaseYear = null, int page = 1)
         {
-            // TODO: Support more parameters like:
-            // new UrlParameter("sort_by", "popularity.desc"),
+            var discover = new NewDiscoverMovie
+            {
+                PrimaryReleaseYear = primaryReleaseYear,
+                Page = page,
+            };
+
+            return await DiscoverMoviesAsync(discover)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Discover movies by different types of data like average rating, number of votes, genres and certifications.
+        /// </summary>
+        /// <param name="discover">An instance of the <see cref="NewDiscoverMovie"/> class.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<Movie>> DiscoverMoviesAsync(NewDiscoverMovie discover)
+        {
+            if (discover is null)
+            {
+                throw new ArgumentNullException(nameof(discover));
+            }
+
             var parameters = new Dictionary<string, object>()
             {
-                ["page"] = page.ToString(CultureInfo.InvariantCulture),
                 ["include_video"] = false,
             };
 
-            if (primaryReleaseYear.HasValue)
+            if (discover.Page.HasValue)
             {
-                parameters.Add("primary_release_year", primaryReleaseYear);
+                parameters.Add("page", discover.Page);
+            }
+
+            if (discover.PrimaryReleaseYear.HasValue)
+            {
+                parameters.Add("primary_release_year", discover.PrimaryReleaseYear);
             }
 
             return await GetJsonAsync<PagedResult<Movie>>("/discover/movie", parameters)
@@ -225,17 +249,44 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task<PagedResult<TVShow>> DiscoverTVShowsAsync(int? firstAirDateYear = null, int page = 1)
         {
-            // TODO: Support more parameters like:
-            // new UrlParameter("sort_by", "popularity.desc"),
-            var parameters = new Dictionary<string, object>()
+            var discover = new NewDiscoverTVShow
             {
-                ["page"] = page.ToString(CultureInfo.InvariantCulture),
-                ["include_null_first_air_dates"] = false,
+                FirstAirDateYear = firstAirDateYear,
+                IncludeNullFirstAirDates = false,
+                Page = page,
             };
 
-            if (firstAirDateYear.HasValue)
+            return await DiscoverTVShowsAsync(discover)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Discover TV shows by different types of data like average rating, number of votes, genres, the network they aired on and air dates.
+        /// </summary>
+        /// <param name="discover">A new instance of the <see cref="NewDiscoverTVShow"/> class.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<TVShow>> DiscoverTVShowsAsync(NewDiscoverTVShow discover)
+        {
+            if (discover is null)
             {
-                parameters.Add("first_air_date_year", firstAirDateYear);
+                throw new ArgumentNullException(nameof(discover));
+            }
+
+            var parameters = new Dictionary<string, object>();
+
+            if (discover.Page.HasValue)
+            {
+                parameters.Add("page", discover.Page);
+            }
+
+            if (discover.FirstAirDateYear.HasValue)
+            {
+                parameters.Add("first_air_date_year", discover.FirstAirDateYear);
+            }
+
+            if (discover.IncludeNullFirstAirDates.HasValue)
+            {
+                parameters.Add("include_null_first_air_dates", discover.IncludeNullFirstAirDates);
             }
 
             return await GetJsonAsync<PagedResult<TVShow>>("/discover/tv", parameters)
