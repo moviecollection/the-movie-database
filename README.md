@@ -44,8 +44,8 @@ foreach (var item in search.Results)
 Please checkout the demo project for more examples.
 
 ## Known Issues
-- [ ] Some methods has not been implemented (e.g. Account related). 
-- [ ] Combined results has not been implemented (e.g. KnownFor).
+- Some methods has not been implemented (e.g. Account related). 
+- Some combined results has not been implemented (e.g. KnownFor).
 
 ## Notes
 - Thanks to [The Movie Database][tmdb] for providing free API services. 
