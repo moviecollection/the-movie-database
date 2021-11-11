@@ -29,7 +29,7 @@
     -->
 
     <PropertyGroup>
-        <Version>1.0.0-preview.4</Version>
+        <Version>1.0.0-preview.5</Version>
         <Authors>Peyman Mohammadi</Authors>
         <Copyright>© 2020 Peyman Mohammadi</Copyright>
         <PackageId>MovieCollection.TheMovieDatabase</PackageId>

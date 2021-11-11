@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
@@ -223,6 +224,11 @@
                 ["include_video"] = false,
             };
 
+            if (discover.SortBy.HasValue)
+            {
+                parameters.Add("sort_by", discover.GetSortByValue());
+            }
+
             if (discover.Page.HasValue)
             {
                 parameters.Add("page", discover.Page);
@@ -231,6 +237,21 @@
             if (discover.PrimaryReleaseYear.HasValue)
             {
                 parameters.Add("primary_release_year", discover.PrimaryReleaseYear);
+            }
+
+            if (discover.Year.HasValue)
+            {
+                parameters.Add("year", discover.Year);
+            }
+
+            if (discover.WithGenreIds?.Any() == true)
+            {
+                parameters.Add("with_genres", string.Join(",", discover.WithGenreIds));
+            }
+
+            if (discover.WithoutGenreIds?.Any() == true)
+            {
+                parameters.Add("without_genres", string.Join(",", discover.WithoutGenreIds));
             }
 
             return await GetJsonAsync<PagedResult<Movie>>("/discover/movie", parameters)
@@ -274,6 +295,11 @@
 
             var parameters = new Dictionary<string, object>();
 
+            if (discover.SortBy.HasValue)
+            {
+                parameters.Add("sort_by", discover.GetSortByValue());
+            }
+
             if (discover.Page.HasValue)
             {
                 parameters.Add("page", discover.Page);
@@ -282,6 +308,16 @@
             if (discover.FirstAirDateYear.HasValue)
             {
                 parameters.Add("first_air_date_year", discover.FirstAirDateYear);
+            }
+
+            if (discover.WithGenreIds?.Any() == true)
+            {
+                parameters.Add("with_genres", string.Join(",", discover.WithGenreIds));
+            }
+
+            if (discover.WithoutGenreIds?.Any() == true)
+            {
+                parameters.Add("without_genres", string.Join(",", discover.WithoutGenreIds));
             }
 
             if (discover.IncludeNullFirstAirDates.HasValue)

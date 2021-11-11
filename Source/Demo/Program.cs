@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using MovieCollection.TheMovieDatabase;
 using MovieCollection.TheMovieDatabase.Enums;
+using MovieCollection.TheMovieDatabase.Models;
 
 namespace Demo
 {
@@ -34,6 +35,8 @@ Start:
             Console.WriteLine("8. Get Person Movie Credits");
             Console.WriteLine("9. Get Person TV Show Credits");
             Console.WriteLine("10. Get Person Combined Credits");
+            Console.WriteLine("11. Discover Movies");
+            Console.WriteLine("12. Discover TV Shows");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -72,6 +75,12 @@ Start:
                     break;
                 case 10:
                     await GetPersonCombinedCreditsAsync();
+                    break;
+                case 11:
+                    await DiscoverMoviesAsync();
+                    break;
+                case 12:
+                    await DiscoverTVShowsAsync();
                     break;
             }
 
@@ -252,6 +261,42 @@ Start:
 
                 Console.WriteLine("MediaType: {0}", item.MediaType);
                 Console.WriteLine("Character: {0}", item.Character);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        private static async Task DiscoverMoviesAsync()
+        {
+            var discover = new NewDiscoverMovie
+            {
+                SortBy = NewDiscoverMovie.SortOptions.ReleaseDate,
+            };
+
+            var items = await _service.DiscoverMoviesAsync(discover);
+
+            foreach (var item in items.Results)
+            {
+                Console.WriteLine("Title: {0}", item.Title);
+                Console.WriteLine("ReleaseDate: {0}", item.ReleaseDate);
+                Console.WriteLine("Overview: {0}", item.Overview);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        private static async Task DiscoverTVShowsAsync()
+        {
+            var discover = new NewDiscoverTVShow
+            {
+                SortBy = NewDiscoverTVShow.SortOptions.FirstAirDate,
+            };
+
+            var items = await _service.DiscoverTVShowsAsync(discover);
+
+            foreach (var item in items.Results)
+            {
+                Console.WriteLine("Name: {0}", item.Name);
+                Console.WriteLine("FirstAirDate: {0}", item.FirstAirDate);
+                Console.WriteLine("Overview: {0}", item.Overview);
                 Console.WriteLine("******************************");
             }
         }
