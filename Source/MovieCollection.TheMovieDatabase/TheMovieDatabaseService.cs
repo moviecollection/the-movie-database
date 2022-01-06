@@ -1566,7 +1566,7 @@
         /// </remarks>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<EpisodeGroup>> GetTVShowEpisodeGroups(int tvShowId)
+        public async Task<BasicResult<EpisodeGroup>> GetTVShowEpisodeGroupsAsync(int tvShowId)
         {
             return await GetJsonAsync<BasicResult<EpisodeGroup>>($"/tv/{tvShowId}/episode_groups")
                 .ConfigureAwait(false);
