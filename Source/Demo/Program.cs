@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MovieCollection.TheMovieDatabase;
@@ -21,6 +22,11 @@ namespace Demo
             _options = new TheMovieDatabaseOptions("your-api-key", "en");
             _service = new TheMovieDatabaseService(_httpClient, _options);
 
+            await InitializeMenu();
+        }
+
+        private static async Task InitializeMenu()
+        {
 Start:
             Console.Clear();
             Console.WriteLine("Welcome to 'The Movie Database' demo.\n");
@@ -37,51 +43,36 @@ Start:
             Console.WriteLine("10. Get Person Combined Credits");
             Console.WriteLine("11. Discover Movies");
             Console.WriteLine("12. Discover TV Shows");
+            Console.WriteLine("13. Authenticate");
+            Console.WriteLine("14. Get Account Details");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
 
             Console.Clear();
 
-            switch (input)
+            var task = input switch
             {
-                default:
-                case 1:
-                    await GetMovieDetailsAsync();
-                    break;
-                case 2:
-                    await GetTVShowDetailsAsync();
-                    break;
-                case 3:
-                    await GetMovieImagesAsync();
-                    break;
-                case 4:
-                    await GetTVShowImagesAsync();
-                    break;
-                case 5:
-                    await GetMovieRecommendationsAsync();
-                    break;
-                case 6:
-                    await GetTVShowRecommendationsAsync();
-                    break;
-                case 7:
-                    await GetCollectionDetailsAsync();
-                    break;
-                case 8:
-                    await GetPersonMovieCreditsAsync();
-                    break;
-                case 9:
-                    await GetPersonTVShowCreditsAsync();
-                    break;
-                case 10:
-                    await GetPersonCombinedCreditsAsync();
-                    break;
-                case 11:
-                    await DiscoverMoviesAsync();
-                    break;
-                case 12:
-                    await DiscoverTVShowsAsync();
-                    break;
+                1 => GetMovieDetailsAsync(),
+                2 => GetTVShowDetailsAsync(),
+                3 => GetMovieImagesAsync(),
+                4 => GetTVShowImagesAsync(),
+                5 => GetMovieRecommendationsAsync(),
+                6 => GetTVShowRecommendationsAsync(),
+                7 => GetCollectionDetailsAsync(),
+                8 => GetPersonMovieCreditsAsync(),
+                9 => GetPersonTVShowCreditsAsync(),
+                10 => GetPersonCombinedCreditsAsync(),
+                11 => DiscoverMoviesAsync(),
+                12 => DiscoverTVShowsAsync(),
+                13 => AuthenticateAsync(),
+                14 => GetAccountDetailsAsync(),
+                _ => null,
+            };
+
+            if (task != null)
+            {
+                await task;
             }
 
             // Wait for user to Exit
@@ -299,6 +290,68 @@ Start:
                 Console.WriteLine("Overview: {0}", item.Overview);
                 Console.WriteLine("******************************");
             }
+        }
+
+        // This is used for caching the session id.
+        private static string sessionId = string.Empty;
+
+        private static async Task AuthenticateAsync()
+        {
+            if (!string.IsNullOrEmpty(sessionId))
+            {
+                Console.WriteLine("You're already logged in.");
+                return;
+            }
+
+            // Step 1: Create a request token.
+            var result = await _service.CreateRequestTokenAsync();
+
+            Console.WriteLine("Success: {0}", result.Success);
+            Console.WriteLine("ExpiresAt: {0}", result.ExpiresAt);
+            Console.WriteLine("RequestToken: {0}", result.RequestToken);
+
+            // Step 2: Ask for the user permission.
+            var url = result.GetAuthenticationUrl();
+
+            // Open the browser to authenticate.
+            var info = new ProcessStartInfo
+            {
+                FileName = url,
+                UseShellExecute = true
+            };
+
+            Process.Start(info);
+
+            // Wait for the user to complete the login.
+            Console.WriteLine("\nPress any key after you approved the request...\n");
+            Console.ReadKey();
+
+            // Step 3: Create a session id.
+            var session = await _service.CreateSessionAsync(result.RequestToken);
+
+            Console.WriteLine("Success: {0}", session.Success);
+            Console.WriteLine("SessionId: {0}", session.SessionId);
+
+            // Store the session id.
+            sessionId = session.SessionId;
+        }
+
+        private static async Task GetAccountDetailsAsync()
+        {
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                Console.WriteLine("Please log in first.");
+                return;
+            }
+
+            var account = await _service.GetAccountDetailsAsync(sessionId);
+
+            Console.WriteLine("Id: {0}", account.Id);
+            Console.WriteLine("Name: {0}", account.Name);
+            Console.WriteLine("Username: {0}", account.Username);
+            Console.WriteLine("Iso639_1: {0}", account.Iso639_1);
+            Console.WriteLine("Iso3166_1: {0}", account.Iso3166_1);
+            Console.WriteLine("IncludeAdult: {0}", account.IncludeAdult);
         }
     }
 }

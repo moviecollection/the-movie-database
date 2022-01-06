@@ -1,5 +1,5 @@
 ﻿# The Movie Database API
-Unofficial implementation of The Movie Database API.
+Unofficial implementation of The Movie Database API for .NET
 
 [![Nuget Version][nuget-shield]][nuget]
 [![Nuget Downloads][nuget-shield-dl]][nuget]
@@ -43,8 +43,8 @@ foreach (var item in search.Results)
 
 Please checkout the demo project for more examples.
 
-## Known Issues
-- Some methods has not been implemented (e.g. Account related). 
+## Limitations
+- Some methods has not been implemented. 
 - Some combined results has not been implemented (e.g. KnownFor).
 
 ## Notes

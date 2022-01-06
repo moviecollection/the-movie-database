@@ -16,7 +16,7 @@
     <PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
-        <NoWarn>NU5105;CA1303;SA1309;SA1101;CS1591;SA1633;CA1055;CA2227;IDE0065</NoWarn>
+        <NoWarn>NU5105;CA1303;SA1309;SA1101;CS1591;SA1633;CA1055;CA2227;IDE0065;IDE0037</NoWarn>
     </PropertyGroup>
 
     <!--
@@ -28,6 +28,8 @@
     # SA1633: The file header is missing or not located at the top of the file.
     # CA1055: Change the return type of method from string to System.Uri.
     # CA2227: Collection properties should be read only.
+    # IDE0065: 'using' directive placement.
+    # IDE0037: Use inferred member name.
     -->
 
     <PropertyGroup>

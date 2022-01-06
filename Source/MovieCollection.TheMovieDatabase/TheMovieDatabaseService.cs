@@ -45,24 +45,430 @@
             }
         }
 
-        // TODO: Account: GetAccountDetails
+        /// <summary>
+        /// Gets the account details by session id.
+        /// </summary>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<AccountDetails> GetAccountDetailsAsync(string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            return await GetJsonAsync<AccountDetails>("/account", parameters)
+                .ConfigureAwait(false);
+        }
+
         // TODO: Account: GetAccountCreatedLists
-        // TODO: Account: GetAccountFavoriteMovies
-        // TODO: Account: GetAccountFavoriteTVShows
-        // TODO: Account: MarkAsFavorite
-        // TODO: Account: GetAccountRatedMovies
-        // TODO: Account: GetAccountRatedTVShows
-        // TODO: Account: GetAccountRatedTVEpisodes
-        // TODO: Account: GetAccountMovieWatchlist
-        // TODO: Account: GetAccountTVShowWatchlist
-        // TODO: Account: AddToWatchlist
+
+        /// <summary>
+        /// Get the list of your favorite movies.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<Movie>> GetAccountFavoriteMoviesAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<Movie>>($"/account/{accountId}/favorite/movies", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get the list of your favorite tv shows.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<TVShow>> GetAccountFavoriteTVShowsAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<TVShow>>($"/account/{accountId}/favorite/tv", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Mark a movie as a favorite item.
+        /// </summary>
+        /// <param name="movieId">The id of the movie.</param>
+        /// <param name="isFavorite">The value indicating whether the movie is favorite.</param>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetMovieFavoriteAsync(int movieId, bool isFavorite, int accountId, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                media_type = "movie",
+                media_id = movieId,
+                favorite = isFavorite,
+            };
+
+            return await PostJsonAsync<Response>($"/account/{accountId}/favorite", parameters, request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Mark a tv show as a favorite item.
+        /// </summary>
+        /// <param name="tvShowId">The id of the tv show.</param>
+        /// <param name="isFavorite">The value indicating whether the tv show is favorite.</param>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetTVShowFavoriteAsync(int tvShowId, bool isFavorite, int accountId, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                media_type = "tv",
+                media_id = tvShowId,
+                favorite = isFavorite,
+            };
+
+            return await PostJsonAsync<Response>($"/account/{accountId}/favorite", parameters, request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a list of all the movies you have rated.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<RatedMovie>> GetAccountRatedMoviesAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<RatedMovie>>($"/account/{accountId}/rated/movies", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a list of all the tv shows you have rated.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<RatedTVShow>> GetAccountRatedTVShowsAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<RatedTVShow>>($"/account/{accountId}/rated/tv", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a list of all the tv episodes you have rated.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<RatedEpisode>> GetAccountRatedTVShowEpisodesAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<RatedEpisode>>($"/account/{accountId}/rated/tv/episodes", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a list of all the movies you have added to your watchlist.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<Movie>> GetAccountMovieWatchlistAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<Movie>>($"/account/{accountId}/watchlist/movies", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Get a list of all the tv shows you have added to your watchlist.
+        /// </summary>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <param name="page">The page number to query.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<PagedResult<TVShow>> GetAccountTVShowWatchlistAsync(int accountId, string sessionId, int? page = null)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            // TODO: Add sort by parameter.
+            if (page.HasValue)
+            {
+                parameters.Add("page", page.Value);
+            }
+
+            return await GetJsonAsync<PagedResult<TVShow>>($"/account/{accountId}/watchlist/tv", parameters)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Add (or remove) a movie from watchlist.
+        /// </summary>
+        /// <param name="movieId">The id of the movie.</param>
+        /// <param name="isWatchlist">The value indicating whether the movie is on watchlist.</param>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetMovieToWatchlistAsync(int movieId, bool isWatchlist, int accountId, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                media_type = "movie",
+                media_id = movieId,
+                watchlist = isWatchlist,
+            };
+
+            return await PostJsonAsync<Response>($"/account/{accountId}/watchlist", parameters, request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Add (or remove) a tv show from watchlist.
+        /// </summary>
+        /// <param name="tvShowId">The id of the tv show.</param>
+        /// <param name="isWatchlist">The value indicating whether the tv show is on watchlist.</param>
+        /// <param name="accountId">The account id.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetTVShowWatchlistAsync(int tvShowId, bool isWatchlist, int accountId, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                media_type = "tv",
+                media_id = tvShowId,
+                watchlist = isWatchlist,
+            };
+
+            return await PostJsonAsync<Response>($"/account/{accountId}/watchlist", parameters, request)
+                .ConfigureAwait(false);
+        }
 
         // TODO: Authentication: CreateGuestSession
-        // TODO: Authentication: CreateRequestToken
-        // TODO: Authentication: CreateSession
-        // TODO: Authentication: CreateSessionWithLogin
+
+        /// <summary>
+        /// Creates a temporary request token that can be used to validate a tmdb user login.
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<RequestTokenResult> CreateRequestTokenAsync()
+        {
+            return await GetJsonAsync<RequestTokenResult>("/authentication/token/new")
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// You can use this method to create a fully valid session id once a user has validated the request token.
+        /// </summary>
+        /// <param name="requestToken">The approved request token.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<SessionResult> CreateSessionAsync(string requestToken)
+        {
+            var request = new
+            {
+                request_token = requestToken,
+            };
+
+            return await PostJsonAsync<SessionResult>("/authentication/session/new", request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// This method allows an application to validate a request token by entering a username and password.
+        /// </summary>
+        /// <remarks>
+        /// Not all applications have access to a web view so this can be used as a substitute.
+        /// Please note, the preferred method of validating a request token is to have a user authenticate the request via the tmdb website.
+        /// </remarks>
+        /// <param name="username">The username to login.</param>
+        /// <param name="password">The password to login.</param>
+        /// <param name="requestToken">The approved request token.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<SessionResult> CreateSessionWithLoginAsync(string username, string password, string requestToken)
+        {
+            var request = new
+            {
+                username = username,
+                password = password,
+                request_token = requestToken,
+            };
+
+            return await PostJsonAsync<SessionResult>("/authentication/token/validate_with_login", request)
+                .ConfigureAwait(false);
+        }
+
         // TODO: Authentication: CreateSessionFromV4
-        // TODO: Authentication: DeleteSession
+
+        /// <summary>
+        /// If you would like to delete (or "logout") from a session, call this method with a valid session id.
+        /// </summary>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<BasicSessionResult> DeleteSessionAsync(string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var request = new
+            {
+                session_id = sessionId,
+            };
+
+            return await DeleteJsonAsync<BasicSessionResult>("/authentication/session", request)
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Get an up to date list of the officially supported movie certifications on tmdb.
@@ -581,8 +987,56 @@
         }
 
         // TODO: Movies: GetMovieWatchProviders
-        // TODO: Movies: RateMovie
-        // TODO: Movies: DeleteMovieRating
+
+        /// <summary>
+        /// Rate a movie.
+        /// </summary>
+        /// <param name="movieId">The id of the movie.</param>
+        /// <param name="value">The value of the rating which is expected to be between 0.5 and 10.0.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetMovieRatingAsync(int movieId, double value, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                value = value,
+            };
+
+            return await PostJsonAsync<Response>($"/movie/{movieId}/rating", parameters, request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Remove your rating for a movie.
+        /// </summary>
+        /// <param name="movieId">The id of the movie.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> DeleteMovieRatingAsync(int movieId, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            return await DeleteJsonAsync<Response>($"/movie/{movieId}/rating", parameters)
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Get the most newly created movie.
@@ -1232,8 +1686,56 @@
         }
 
         // TODO: TV: GetTVShowWatchProviders
-        // TODO: TV: RateTVShow
-        // TODO: TV: DeleteTVShowRating
+
+        /// <summary>
+        /// Rate a tv show.
+        /// </summary>
+        /// <param name="tvShowId">The id of the tv show.</param>
+        /// <param name="value">The value of the rating which is expected to be between 0.5 and 10.0.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetTVShowRatingAsync(int tvShowId, double value, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                value = value,
+            };
+
+            return await PostJsonAsync<Response>($"/tv/{tvShowId}/rating", parameters, request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Remove your rating for a tv show.
+        /// </summary>
+        /// <param name="tvShowId">The id of the tv show.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> DeleteTVShowRatingAsync(int tvShowId, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            return await DeleteJsonAsync<Response>($"/tv/{tvShowId}/rating", parameters)
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Get the most newly created TV show.
@@ -1462,8 +1964,59 @@
                 .ConfigureAwait(false);
         }
 
-        // TODO: TV Episodes: RateTVShowEpisode
-        // TODO: TV Episodes: DeleteTVShowEpisodeRate
+        /// <summary>
+        /// Rate a tv episode.
+        /// </summary>
+        /// <param name="tvShowId">The id of the tv show.</param>
+        /// <param name="seasonNumber">The season number.</param>
+        /// <param name="episodeNumber">The episode number.</param>
+        /// <param name="value">The value of the rating which is expected to be between 0.5 and 10.0.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> SetTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, double value, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            var request = new
+            {
+                value = value,
+            };
+
+            return await PostJsonAsync<Response>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/rating", parameters, request)
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Remove your rating for a tv episode.
+        /// </summary>
+        /// <param name="tvShowId">The id of the tv show.</param>
+        /// <param name="seasonNumber">The season number.</param>
+        /// <param name="episodeNumber">The episode number.</param>
+        /// <param name="sessionId">A valid session id.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task<Response> DeleteTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, string sessionId)
+        {
+            if (string.IsNullOrWhiteSpace(sessionId))
+            {
+                throw new ArgumentException($"'{nameof(sessionId)}' cannot be null or whitespace.", nameof(sessionId));
+            }
+
+            var parameters = new Dictionary<string, object>()
+            {
+                ["session_id"] = sessionId,
+            };
+
+            return await DeleteJsonAsync<Response>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/rating", parameters)
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Get the videos that have been added to a TV episode.
@@ -1559,7 +2112,56 @@
             return builder.ToString();
         }
 
+        private async Task<T> DeleteJsonAsync<T>(string requestUrl, object obj)
+        {
+            using var request = CreateRequest(HttpMethod.Delete, requestUrl, null);
+
+            string json = JsonConvert.SerializeObject(obj);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            return await SendRequestAsync<T>(request)
+                .ConfigureAwait(false);
+        }
+
+        private async Task<T> DeleteJsonAsync<T>(string requestUrl, Dictionary<string, object> parameters)
+        {
+            using var request = CreateRequest(HttpMethod.Delete, requestUrl, parameters);
+
+            return await SendRequestAsync<T>(request)
+                .ConfigureAwait(false);
+        }
+
+        private async Task<T> PostJsonAsync<T>(string requestUrl, object obj)
+        {
+            using var request = CreateRequest(HttpMethod.Post, requestUrl, null);
+
+            string json = JsonConvert.SerializeObject(obj);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            return await SendRequestAsync<T>(request)
+                .ConfigureAwait(false);
+        }
+
+        private async Task<T> PostJsonAsync<T>(string requestUrl, Dictionary<string, object> parameters, object obj)
+        {
+            using var request = CreateRequest(HttpMethod.Post, requestUrl, parameters);
+
+            string json = JsonConvert.SerializeObject(obj);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            return await SendRequestAsync<T>(request)
+                .ConfigureAwait(false);
+        }
+
         private async Task<T> GetJsonAsync<T>(string requestUrl, Dictionary<string, object> parameters = null)
+        {
+            using var request = CreateRequest(HttpMethod.Get, requestUrl, parameters);
+
+            return await SendRequestAsync<T>(request)
+                .ConfigureAwait(false);
+        }
+
+        private HttpRequestMessage CreateRequest(HttpMethod httpMethod, string requestUrl, Dictionary<string, object> parameters)
         {
             string url = _options.ApiAddress + requestUrl;
 
@@ -1574,7 +2176,12 @@
 
             url += GetParametersString(parameters);
 
-            using var response = await _httpClient.GetAsync(new Uri(url))
+            return new HttpRequestMessage(httpMethod, url);
+        }
+
+        private async Task<T> SendRequestAsync<T>(HttpRequestMessage request)
+        {
+            using var response = await _httpClient.SendAsync(request)
                 .ConfigureAwait(false);
 
             response.EnsureSuccessStatusCode();
