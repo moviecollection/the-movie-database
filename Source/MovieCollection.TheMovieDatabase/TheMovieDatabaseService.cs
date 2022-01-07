@@ -341,7 +341,7 @@
         /// <param name="accountId">The account id.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetMovieToWatchlistAsync(int movieId, bool isWatchlist, int accountId, string sessionId)
+        public async Task<Response> SetMovieWatchlistAsync(int movieId, bool isWatchlist, int accountId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
