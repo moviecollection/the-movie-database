@@ -50,7 +50,7 @@
         /// </summary>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<AccountDetails> GetAccountDetailsAsync(string sessionId)
+        public Task<AccountDetails> GetAccountDetailsAsync(string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -62,8 +62,7 @@
                 ["session_id"] = sessionId,
             };
 
-            return await GetJsonAsync<AccountDetails>("/account", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<AccountDetails>("/account", parameters);
         }
 
         // TODO: Account: GetAccountCreatedLists
@@ -75,7 +74,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetAccountFavoriteMoviesAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<Movie>> GetAccountFavoriteMoviesAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -93,8 +92,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<Movie>>($"/account/{accountId}/favorite/movies", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/account/{accountId}/favorite/movies", parameters);
         }
 
         /// <summary>
@@ -104,7 +102,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetAccountFavoriteTVShowsAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<TVShow>> GetAccountFavoriteTVShowsAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -122,8 +120,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<TVShow>>($"/account/{accountId}/favorite/tv", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>($"/account/{accountId}/favorite/tv", parameters);
         }
 
         /// <summary>
@@ -134,7 +131,7 @@
         /// <param name="accountId">The account id.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetMovieFavoriteAsync(int movieId, bool isFavorite, int accountId, string sessionId)
+        public Task<Response> SetMovieFavoriteAsync(int movieId, bool isFavorite, int accountId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -153,8 +150,7 @@
                 favorite = isFavorite,
             };
 
-            return await PostJsonAsync<Response>($"/account/{accountId}/favorite", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/account/{accountId}/favorite", parameters, request);
         }
 
         /// <summary>
@@ -165,7 +161,7 @@
         /// <param name="accountId">The account id.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetTVShowFavoriteAsync(int tvShowId, bool isFavorite, int accountId, string sessionId)
+        public Task<Response> SetTVShowFavoriteAsync(int tvShowId, bool isFavorite, int accountId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -184,8 +180,7 @@
                 favorite = isFavorite,
             };
 
-            return await PostJsonAsync<Response>($"/account/{accountId}/favorite", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/account/{accountId}/favorite", parameters, request);
         }
 
         /// <summary>
@@ -195,7 +190,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<RatedMovie>> GetAccountRatedMoviesAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<RatedMovie>> GetAccountRatedMoviesAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -213,8 +208,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<RatedMovie>>($"/account/{accountId}/rated/movies", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<RatedMovie>>($"/account/{accountId}/rated/movies", parameters);
         }
 
         /// <summary>
@@ -224,7 +218,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<RatedTVShow>> GetAccountRatedTVShowsAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<RatedTVShow>> GetAccountRatedTVShowsAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -242,8 +236,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<RatedTVShow>>($"/account/{accountId}/rated/tv", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<RatedTVShow>>($"/account/{accountId}/rated/tv", parameters);
         }
 
         /// <summary>
@@ -253,7 +246,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<RatedEpisode>> GetAccountRatedTVShowEpisodesAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<RatedEpisode>> GetAccountRatedTVShowEpisodesAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -271,8 +264,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<RatedEpisode>>($"/account/{accountId}/rated/tv/episodes", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<RatedEpisode>>($"/account/{accountId}/rated/tv/episodes", parameters);
         }
 
         /// <summary>
@@ -282,7 +274,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetAccountMovieWatchlistAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<Movie>> GetAccountMovieWatchlistAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -300,8 +292,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<Movie>>($"/account/{accountId}/watchlist/movies", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/account/{accountId}/watchlist/movies", parameters);
         }
 
         /// <summary>
@@ -311,7 +302,7 @@
         /// <param name="sessionId">A valid session id.</param>
         /// <param name="page">The page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetAccountTVShowWatchlistAsync(int accountId, string sessionId, int? page = null)
+        public Task<PagedResult<TVShow>> GetAccountTVShowWatchlistAsync(int accountId, string sessionId, int? page = null)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -329,8 +320,7 @@
                 parameters.Add("page", page.Value);
             }
 
-            return await GetJsonAsync<PagedResult<TVShow>>($"/account/{accountId}/watchlist/tv", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>($"/account/{accountId}/watchlist/tv", parameters);
         }
 
         /// <summary>
@@ -341,7 +331,7 @@
         /// <param name="accountId">The account id.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetMovieWatchlistAsync(int movieId, bool isWatchlist, int accountId, string sessionId)
+        public Task<Response> SetMovieWatchlistAsync(int movieId, bool isWatchlist, int accountId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -360,8 +350,7 @@
                 watchlist = isWatchlist,
             };
 
-            return await PostJsonAsync<Response>($"/account/{accountId}/watchlist", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/account/{accountId}/watchlist", parameters, request);
         }
 
         /// <summary>
@@ -372,7 +361,7 @@
         /// <param name="accountId">The account id.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetTVShowWatchlistAsync(int tvShowId, bool isWatchlist, int accountId, string sessionId)
+        public Task<Response> SetTVShowWatchlistAsync(int tvShowId, bool isWatchlist, int accountId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -391,8 +380,7 @@
                 watchlist = isWatchlist,
             };
 
-            return await PostJsonAsync<Response>($"/account/{accountId}/watchlist", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/account/{accountId}/watchlist", parameters, request);
         }
 
         // TODO: Authentication: CreateGuestSession
@@ -401,10 +389,9 @@
         /// Creates a temporary request token that can be used to validate a tmdb user login.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<RequestTokenResult> CreateRequestTokenAsync()
+        public Task<RequestTokenResult> CreateRequestTokenAsync()
         {
-            return await GetJsonAsync<RequestTokenResult>("/authentication/token/new")
-                .ConfigureAwait(false);
+            return GetJsonAsync<RequestTokenResult>("/authentication/token/new");
         }
 
         /// <summary>
@@ -412,15 +399,14 @@
         /// </summary>
         /// <param name="requestToken">The approved request token.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<SessionResult> CreateSessionAsync(string requestToken)
+        public Task<SessionResult> CreateSessionAsync(string requestToken)
         {
             var request = new
             {
                 request_token = requestToken,
             };
 
-            return await PostJsonAsync<SessionResult>("/authentication/session/new", request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<SessionResult>("/authentication/session/new", request);
         }
 
         /// <summary>
@@ -434,7 +420,7 @@
         /// <param name="password">The password to login.</param>
         /// <param name="requestToken">The approved request token.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<SessionResult> CreateSessionWithLoginAsync(string username, string password, string requestToken)
+        public Task<SessionResult> CreateSessionWithLoginAsync(string username, string password, string requestToken)
         {
             var request = new
             {
@@ -443,8 +429,7 @@
                 request_token = requestToken,
             };
 
-            return await PostJsonAsync<SessionResult>("/authentication/token/validate_with_login", request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<SessionResult>("/authentication/token/validate_with_login", request);
         }
 
         // TODO: Authentication: CreateSessionFromV4
@@ -454,7 +439,7 @@
         /// </summary>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicSessionResult> DeleteSessionAsync(string sessionId)
+        public Task<BasicSessionResult> DeleteSessionAsync(string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -466,28 +451,25 @@
                 session_id = sessionId,
             };
 
-            return await DeleteJsonAsync<BasicSessionResult>("/authentication/session", request)
-                .ConfigureAwait(false);
+            return DeleteJsonAsync<BasicSessionResult>("/authentication/session", request);
         }
 
         /// <summary>
         /// Get an up to date list of the officially supported movie certifications on tmdb.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CertificationsResult> GetMovieCertificationsAsync()
+        public Task<CertificationsResult> GetMovieCertificationsAsync()
         {
-            return await GetJsonAsync<CertificationsResult>("/certification/movie/list")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CertificationsResult>("/certification/movie/list");
         }
 
         /// <summary>
         /// Get an up to date list of the officially supported TV show certifications on tmdb.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CertificationsResult> GetTVShowCertificationsAsync()
+        public Task<CertificationsResult> GetTVShowCertificationsAsync()
         {
-            return await GetJsonAsync<CertificationsResult>("/certification/tv/list")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CertificationsResult>("/certification/tv/list");
         }
 
         // TODO: Changes: GetMovieChanges
@@ -499,10 +481,9 @@
         /// </summary>
         /// <param name="collectionId">Id of the collection.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CollectionDetails> GetCollectionDetailsAsync(int collectionId)
+        public Task<CollectionDetails> GetCollectionDetailsAsync(int collectionId)
         {
-            return await GetJsonAsync<CollectionDetails>($"/collection/{collectionId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CollectionDetails>($"/collection/{collectionId}");
         }
 
         /// <summary>
@@ -510,10 +491,9 @@
         /// </summary>
         /// <param name="collectionId">Id of the collection.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ImagesResult> GetCollectionImagesAsync(int collectionId)
+        public Task<ImagesResult> GetCollectionImagesAsync(int collectionId)
         {
-            return await GetJsonAsync<ImagesResult>($"/collection/{collectionId}/images")
-                .ConfigureAwait(false);
+            return GetJsonAsync<ImagesResult>($"/collection/{collectionId}/images");
         }
 
         /// <summary>
@@ -521,10 +501,9 @@
         /// </summary>
         /// <param name="collectionId">Id of the collection.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TranslationsResult<CollectionTranslationData>> GetCollectionTranslationsAsync(int collectionId)
+        public Task<TranslationsResult<CollectionTranslationData>> GetCollectionTranslationsAsync(int collectionId)
         {
-            return await GetJsonAsync<TranslationsResult<CollectionTranslationData>>($"/collection/{collectionId}/translations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TranslationsResult<CollectionTranslationData>>($"/collection/{collectionId}/translations");
         }
 
         /// <summary>
@@ -532,10 +511,9 @@
         /// </summary>
         /// <param name="companyId">Id of the company.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CompanyDetails> GetCompanyDetailsAsync(int companyId)
+        public Task<CompanyDetails> GetCompanyDetailsAsync(int companyId)
         {
-            return await GetJsonAsync<CompanyDetails>($"/company/{companyId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CompanyDetails>($"/company/{companyId}");
         }
 
         /// <summary>
@@ -543,10 +521,9 @@
         /// </summary>
         /// <param name="companyId">Id of the company.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<CompanyName>> GetCompanyAlternativeNamesAsync(int companyId)
+        public Task<BasicResult<CompanyName>> GetCompanyAlternativeNamesAsync(int companyId)
         {
-            return await GetJsonAsync<BasicResult<CompanyName>>($"/company/{companyId}/alternative_names")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<CompanyName>>($"/company/{companyId}/alternative_names");
         }
 
         /// <summary>
@@ -561,10 +538,9 @@
         /// </remarks>
         /// <param name="companyId">Id of the company.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<OrganizationImages> GetCompanyImagesAsync(int companyId)
+        public Task<OrganizationImages> GetCompanyImagesAsync(int companyId)
         {
-            return await GetJsonAsync<OrganizationImages>($"/company/{companyId}/images")
-                .ConfigureAwait(false);
+            return GetJsonAsync<OrganizationImages>($"/company/{companyId}/images");
         }
 
         // TODO: Configuration: GetApiConfiguration
@@ -579,10 +555,9 @@
         /// </summary>
         /// <param name="creditId">Id of the credit.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CreditDetailsResult> GetCreditDetailsAsync(string creditId)
+        public Task<CreditDetailsResult> GetCreditDetailsAsync(string creditId)
         {
-            return await GetJsonAsync<CreditDetailsResult>($"/credit/{creditId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CreditDetailsResult>($"/credit/{creditId}");
         }
 
         /// <summary>
@@ -601,7 +576,7 @@
         /// <param name="primaryReleaseYear">Primary Release Year of the movie.</param>
         /// <param name="page">Page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> DiscoverMoviesAsync(int? primaryReleaseYear = null, int page = 1)
+        public Task<PagedResult<Movie>> DiscoverMoviesAsync(int? primaryReleaseYear = null, int page = 1)
         {
             var discover = new NewDiscoverMovie
             {
@@ -609,8 +584,7 @@
                 Page = page,
             };
 
-            return await DiscoverMoviesAsync(discover)
-                .ConfigureAwait(false);
+            return DiscoverMoviesAsync(discover);
         }
 
         /// <summary>
@@ -618,7 +592,7 @@
         /// </summary>
         /// <param name="discover">An instance of the <see cref="NewDiscoverMovie"/> class.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> DiscoverMoviesAsync(NewDiscoverMovie discover)
+        public Task<PagedResult<Movie>> DiscoverMoviesAsync(NewDiscoverMovie discover)
         {
             if (discover is null)
             {
@@ -660,8 +634,7 @@
                 parameters.Add("without_genres", string.Join(",", discover.WithoutGenreIds));
             }
 
-            return await GetJsonAsync<PagedResult<Movie>>("/discover/movie", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>("/discover/movie", parameters);
         }
 
         /// <summary>
@@ -674,7 +647,7 @@
         /// <param name="firstAirDateYear">First air date year.</param>
         /// <param name="page">Page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> DiscoverTVShowsAsync(int? firstAirDateYear = null, int page = 1)
+        public Task<PagedResult<TVShow>> DiscoverTVShowsAsync(int? firstAirDateYear = null, int page = 1)
         {
             var discover = new NewDiscoverTVShow
             {
@@ -683,8 +656,7 @@
                 Page = page,
             };
 
-            return await DiscoverTVShowsAsync(discover)
-                .ConfigureAwait(false);
+            return DiscoverTVShowsAsync(discover);
         }
 
         /// <summary>
@@ -692,7 +664,7 @@
         /// </summary>
         /// <param name="discover">A new instance of the <see cref="NewDiscoverTVShow"/> class.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> DiscoverTVShowsAsync(NewDiscoverTVShow discover)
+        public Task<PagedResult<TVShow>> DiscoverTVShowsAsync(NewDiscoverTVShow discover)
         {
             if (discover is null)
             {
@@ -731,8 +703,7 @@
                 parameters.Add("include_null_first_air_dates", discover.IncludeNullFirstAirDates);
             }
 
-            return await GetJsonAsync<PagedResult<TVShow>>("/discover/tv", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>("/discover/tv", parameters);
         }
 
         /// <summary>
@@ -742,7 +713,7 @@
         /// <param name="externalId">External id (e.g. tt0141842 for imdb).</param>
         /// <param name="externalSource">External source name (e.g. imdb_id or tv_db_id).</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Find> FindByExternalIdAsync(string externalId, string externalSource = "imdb_id")
+        public Task<Find> FindByExternalIdAsync(string externalId, string externalSource = "imdb_id")
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -750,28 +721,25 @@
                 ["external_source"] = externalSource,
             };
 
-            return await GetJsonAsync<Find>($"/find/{externalId}", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<Find>($"/find/{externalId}", parameters);
         }
 
         /// <summary>
         /// Get the list of official genres for movies.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<GenresResult> GetMovieGenresAsync()
+        public Task<GenresResult> GetMovieGenresAsync()
         {
-            return await GetJsonAsync<GenresResult>("/genre/movie/list")
-                .ConfigureAwait(false);
+            return GetJsonAsync<GenresResult>("/genre/movie/list");
         }
 
         /// <summary>
         /// Get the list of official genres for TV shows.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<GenresResult> GetTVShowGenresAsync()
+        public Task<GenresResult> GetTVShowGenresAsync()
         {
-            return await GetJsonAsync<GenresResult>("/genre/tv/list")
-                .ConfigureAwait(false);
+            return GetJsonAsync<GenresResult>("/genre/tv/list");
         }
 
         // TODO: Guest Sessions: GetGuestSessionRatedMovies
@@ -783,10 +751,9 @@
         /// </summary>
         /// <param name="keywordId">Id of the keyword.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Keyword> GetKeywordDetailsAsync(int keywordId)
+        public Task<Keyword> GetKeywordDetailsAsync(int keywordId)
         {
-            return await GetJsonAsync<Keyword>($"/keyword/{keywordId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<Keyword>($"/keyword/{keywordId}");
         }
 
         /// <summary>
@@ -797,10 +764,9 @@
         /// </remarks>
         /// <param name="keywordId">Id of the keyword.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetKeywordMoviesAsync(int keywordId)
+        public Task<PagedResult<Movie>> GetKeywordMoviesAsync(int keywordId)
         {
-            return await GetJsonAsync<PagedResult<Movie>>($"/keyword/{keywordId}/movies")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/keyword/{keywordId}/movies");
         }
 
         // TODO: Lists: GetListDetails
@@ -816,15 +782,14 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<MovieDetails> GetMovieDetailsAsync(int movieId)
+        public Task<MovieDetails> GetMovieDetailsAsync(int movieId)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["append_to_response"] = "credits,release_dates",
             };
 
-            return await GetJsonAsync<MovieDetails>($"/movie/{movieId}", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<MovieDetails>($"/movie/{movieId}", parameters);
         }
 
         // TODO: Movies: GetMovieAccountStates
@@ -834,10 +799,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<AlternativeTitle>> GetMovieAlternativeTitlesAsync(int movieId)
+        public Task<BasicResult<AlternativeTitle>> GetMovieAlternativeTitlesAsync(int movieId)
         {
-            return await GetJsonAsync<BasicResult<AlternativeTitle>>($"/movie/{movieId}/alternative_titles")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<AlternativeTitle>>($"/movie/{movieId}/alternative_titles");
         }
 
         // TODO: Movies: GetMovieChanges
@@ -847,10 +811,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CreditsResult> GetMovieCreditsAsync(int movieId)
+        public Task<CreditsResult> GetMovieCreditsAsync(int movieId)
         {
-            return await GetJsonAsync<CreditsResult>($"/movie/{movieId}/credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CreditsResult>($"/movie/{movieId}/credits");
         }
 
         /// <summary>
@@ -858,10 +821,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ExternalIds> GetMovieExternalIdsAsync(int movieId)
+        public Task<ExternalIds> GetMovieExternalIdsAsync(int movieId)
         {
-            return await GetJsonAsync<ExternalIds>($"/movie/{movieId}/external_ids")
-                .ConfigureAwait(false);
+            return GetJsonAsync<ExternalIds>($"/movie/{movieId}/external_ids");
         }
 
         /// <summary>
@@ -869,7 +831,7 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ImagesResult> GetMovieImagesAsync(int movieId)
+        public Task<ImagesResult> GetMovieImagesAsync(int movieId)
         {
             var parameters = new Dictionary<string, object>();
 
@@ -878,8 +840,7 @@
                 parameters.Add("include_image_language", _options.ImageFallbackLanguages);
             }
 
-            return await GetJsonAsync<ImagesResult>($"/movie/{movieId}/images", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<ImagesResult>($"/movie/{movieId}/images", parameters);
         }
 
         /// <summary>
@@ -887,10 +848,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<KeywordsResult> GetMovieKeywordsAsync(int movieId)
+        public Task<KeywordsResult> GetMovieKeywordsAsync(int movieId)
         {
-            return await GetJsonAsync<KeywordsResult>($"/movie/{movieId}/keywords")
-                .ConfigureAwait(false);
+            return GetJsonAsync<KeywordsResult>($"/movie/{movieId}/keywords");
         }
 
         /// <summary>
@@ -898,10 +858,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<MovieListResult> GetMovieListsAsync(int movieId)
+        public Task<MovieListResult> GetMovieListsAsync(int movieId)
         {
-            return await GetJsonAsync<MovieListResult>($"/movie/{movieId}/lists")
-                .ConfigureAwait(false);
+            return GetJsonAsync<MovieListResult>($"/movie/{movieId}/lists");
         }
 
         /// <summary>
@@ -909,10 +868,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetMovieRecommendationsAsync(int movieId)
+        public Task<PagedResult<Movie>> GetMovieRecommendationsAsync(int movieId)
         {
-            return await GetJsonAsync<PagedResult<Movie>>($"/movie/{movieId}/recommendations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/movie/{movieId}/recommendations");
         }
 
         /// <summary>
@@ -929,10 +887,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<ReleaseDatesResult>> GetMovieReleaseDatesAsync(int movieId)
+        public Task<BasicResult<ReleaseDatesResult>> GetMovieReleaseDatesAsync(int movieId)
         {
-            return await GetJsonAsync<BasicResult<ReleaseDatesResult>>($"/movie/{movieId}/release_dates")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<ReleaseDatesResult>>($"/movie/{movieId}/release_dates");
         }
 
         /// <summary>
@@ -940,10 +897,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ReviewResult> GetMovieReviewsAsync(int movieId)
+        public Task<ReviewResult> GetMovieReviewsAsync(int movieId)
         {
-            return await GetJsonAsync<ReviewResult>($"/movie/{movieId}/reviews")
-                .ConfigureAwait(false);
+            return GetJsonAsync<ReviewResult>($"/movie/{movieId}/reviews");
         }
 
         /// <summary>
@@ -953,15 +909,14 @@
         /// <param name="movieId">Id of the movie.</param>
         /// <param name="page">Specify which page to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetSimilarMoviesAsync(int movieId, int page = 1)
+        public Task<PagedResult<Movie>> GetSimilarMoviesAsync(int movieId, int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<Movie>>($"/movie/{movieId}/similar", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/movie/{movieId}/similar", parameters);
         }
 
         /// <summary>
@@ -969,10 +924,9 @@
         /// </summary>
         /// <param name="movieId">Id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TranslationsResult<MovieTranslationData>> GetMovieTranslationsAsync(int movieId)
+        public Task<TranslationsResult<MovieTranslationData>> GetMovieTranslationsAsync(int movieId)
         {
-            return await GetJsonAsync<TranslationsResult<MovieTranslationData>>($"/movie/{movieId}/translations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TranslationsResult<MovieTranslationData>>($"/movie/{movieId}/translations");
         }
 
         /// <summary>
@@ -980,10 +934,9 @@
         /// </summary>
         /// <param name="movieId">The id of the movie.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<Video>> GetMovieVideosAsync(int movieId)
+        public Task<BasicResult<Video>> GetMovieVideosAsync(int movieId)
         {
-            return await GetJsonAsync<BasicResult<Video>>($"/movie/{movieId}/videos")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<Video>>($"/movie/{movieId}/videos");
         }
 
         // TODO: Movies: GetMovieWatchProviders
@@ -995,7 +948,7 @@
         /// <param name="value">The value of the rating which is expected to be between 0.5 and 10.0.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetMovieRatingAsync(int movieId, double value, string sessionId)
+        public Task<Response> SetMovieRatingAsync(int movieId, double value, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -1012,8 +965,7 @@
                 value = value,
             };
 
-            return await PostJsonAsync<Response>($"/movie/{movieId}/rating", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/movie/{movieId}/rating", parameters, request);
         }
 
         /// <summary>
@@ -1022,7 +974,7 @@
         /// <param name="movieId">The id of the movie.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> DeleteMovieRatingAsync(int movieId, string sessionId)
+        public Task<Response> DeleteMovieRatingAsync(int movieId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -1034,8 +986,7 @@
                 ["session_id"] = sessionId,
             };
 
-            return await DeleteJsonAsync<Response>($"/movie/{movieId}/rating", parameters)
-                .ConfigureAwait(false);
+            return DeleteJsonAsync<Response>($"/movie/{movieId}/rating", parameters);
         }
 
         /// <summary>
@@ -1043,10 +994,9 @@
         /// This is a live response and will continuously change.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<MovieDetails> GetLatestMovieAsync()
+        public Task<MovieDetails> GetLatestMovieAsync()
         {
-            return await GetJsonAsync<MovieDetails>("/movie/latest")
-                .ConfigureAwait(false);
+            return GetJsonAsync<MovieDetails>("/movie/latest");
         }
 
         /// <summary>
@@ -1057,7 +1007,7 @@
         /// <param name="page">Page number to query.</param>
         /// <param name="region">Specific country.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<NowPlayingResult> GetNowPlayingAsync(int page = 1, string region = null)
+        public Task<NowPlayingResult> GetNowPlayingAsync(int page = 1, string region = null)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -1069,8 +1019,7 @@
                 parameters.Add("region", region);
             }
 
-            return await GetJsonAsync<NowPlayingResult>("/movie/now_playing")
-                .ConfigureAwait(false);
+            return GetJsonAsync<NowPlayingResult>("/movie/now_playing");
         }
 
         /// <summary>
@@ -1080,7 +1029,7 @@
         /// <param name="page">Page number to query.</param>
         /// <param name="region">Specific country.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetPopularMoviesAsync(int page = 1, string region = null)
+        public Task<PagedResult<Movie>> GetPopularMoviesAsync(int page = 1, string region = null)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -1092,8 +1041,7 @@
                 parameters.Add("region", region);
             }
 
-            return await GetJsonAsync<PagedResult<Movie>>("/movie/popular")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>("/movie/popular");
         }
 
         /// <summary>
@@ -1102,7 +1050,7 @@
         /// <param name="page">Page number to query.</param>
         /// <param name="region">Specific country.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetTopRatedMoviesAsync(int page = 1, string region = null)
+        public Task<PagedResult<Movie>> GetTopRatedMoviesAsync(int page = 1, string region = null)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -1114,8 +1062,7 @@
                 parameters.Add("region", region);
             }
 
-            return await GetJsonAsync<PagedResult<Movie>>("/movie/top_rated")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>("/movie/top_rated");
         }
 
         /// <summary>
@@ -1126,7 +1073,7 @@
         /// <param name="page">Page number to query.</param>
         /// <param name="region">Specific country.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<NowPlayingResult> GetUpcomingMoviesAsync(int page = 1, string region = null)
+        public Task<NowPlayingResult> GetUpcomingMoviesAsync(int page = 1, string region = null)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -1138,8 +1085,7 @@
                 parameters.Add("region", region);
             }
 
-            return await GetJsonAsync<NowPlayingResult>("/movie/upcoming")
-                .ConfigureAwait(false);
+            return GetJsonAsync<NowPlayingResult>("/movie/upcoming");
         }
 
         /// <summary>
@@ -1147,10 +1093,9 @@
         /// </summary>
         /// <param name="networkId">Id of the network.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<NetworkDetails> GetNetworkDetailsAsync(int networkId)
+        public Task<NetworkDetails> GetNetworkDetailsAsync(int networkId)
         {
-            return await GetJsonAsync<NetworkDetails>($"/network/{networkId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<NetworkDetails>($"/network/{networkId}");
         }
 
         /// <summary>
@@ -1158,10 +1103,9 @@
         /// </summary>
         /// <param name="networkId">Id of the network.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<CompanyName>> GetNetworkAlternativeNamesAsync(int networkId)
+        public Task<BasicResult<CompanyName>> GetNetworkAlternativeNamesAsync(int networkId)
         {
-            return await GetJsonAsync<BasicResult<CompanyName>>($"/network/{networkId}/alternative_names")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<CompanyName>>($"/network/{networkId}/alternative_names");
         }
 
         /// <summary>
@@ -1173,10 +1117,9 @@
         /// </summary>
         /// <param name="networkId">Id of the network.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<OrganizationImages> GetNetworkImagesAsync(int networkId)
+        public Task<OrganizationImages> GetNetworkImagesAsync(int networkId)
         {
-            return await GetJsonAsync<OrganizationImages>($"/network/{networkId}/images")
-                .ConfigureAwait(false);
+            return GetJsonAsync<OrganizationImages>($"/network/{networkId}/images");
         }
 
         /// <summary>
@@ -1186,10 +1129,9 @@
         /// </summary>
         /// <param name="timeWindow">Time window (e.g. Day or Week).</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetTrendingMoviesAsync(TimeWindow timeWindow)
+        public Task<PagedResult<Movie>> GetTrendingMoviesAsync(TimeWindow timeWindow)
         {
-            return await GetJsonAsync<PagedResult<Movie>>($"/trending/movie/{timeWindow.ToString().ToLowerInvariant()}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/trending/movie/{timeWindow.ToString().ToLowerInvariant()}");
         }
 
         /// <summary>
@@ -1199,10 +1141,9 @@
         /// </summary>
         /// <param name="timeWindow">Time window (e.g. Day or Week).</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetTrendingTVShowsAsync(TimeWindow timeWindow)
+        public Task<PagedResult<TVShow>> GetTrendingTVShowsAsync(TimeWindow timeWindow)
         {
-            return await GetJsonAsync<PagedResult<TVShow>>($"/trending/tv/{timeWindow.ToString().ToLowerInvariant()}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>($"/trending/tv/{timeWindow.ToString().ToLowerInvariant()}");
         }
 
         /// <summary>
@@ -1212,10 +1153,9 @@
         /// </summary>
         /// <param name="timeWindow">Time window (e.g. Day or Week).</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Person>> GetTrendingPeopleAsync(TimeWindow timeWindow)
+        public Task<PagedResult<Person>> GetTrendingPeopleAsync(TimeWindow timeWindow)
         {
-            return await GetJsonAsync<PagedResult<Person>>($"/trending/person/{timeWindow.ToString().ToLowerInvariant()}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Person>>($"/trending/person/{timeWindow.ToString().ToLowerInvariant()}");
         }
 
         /// <summary>
@@ -1223,10 +1163,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonDetails> GetPersonDetailsAsync(int personId)
+        public Task<PersonDetails> GetPersonDetailsAsync(int personId)
         {
-            return await GetJsonAsync<PersonDetails>($"/person/{personId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PersonDetails>($"/person/{personId}");
         }
 
         // TODO: People: GetPersonChanges
@@ -1236,10 +1175,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonMovieCredits> GetPersonMovieCreditsAsync(int personId)
+        public Task<PersonMovieCredits> GetPersonMovieCreditsAsync(int personId)
         {
-            return await GetJsonAsync<PersonMovieCredits>($"/person/{personId}/movie_credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PersonMovieCredits>($"/person/{personId}/movie_credits");
         }
 
         /// <summary>
@@ -1247,10 +1185,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonTVShowCredits> GetPersonTVShowCreditsAsync(int personId)
+        public Task<PersonTVShowCredits> GetPersonTVShowCreditsAsync(int personId)
         {
-            return await GetJsonAsync<PersonTVShowCredits>($"/person/{personId}/tv_credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PersonTVShowCredits>($"/person/{personId}/tv_credits");
         }
 
         /// <summary>
@@ -1258,10 +1195,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonCombinedCredits> GetPersonCombinedCreditsAsync(int personId)
+        public Task<PersonCombinedCredits> GetPersonCombinedCreditsAsync(int personId)
         {
-            return await GetJsonAsync<PersonCombinedCredits>($"/person/{personId}/combined_credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PersonCombinedCredits>($"/person/{personId}/combined_credits");
         }
 
         /// <summary>
@@ -1269,10 +1205,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ExternalIds> GetPersonExternalIdsAsync(int personId)
+        public Task<ExternalIds> GetPersonExternalIdsAsync(int personId)
         {
-            return await GetJsonAsync<ExternalIds>($"/person/{personId}/external_ids")
-                .ConfigureAwait(false);
+            return GetJsonAsync<ExternalIds>($"/person/{personId}/external_ids");
         }
 
         /// <summary>
@@ -1280,10 +1215,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonImageResult> GetPersonImagesAsync(int personId)
+        public Task<PersonImageResult> GetPersonImagesAsync(int personId)
         {
-            return await GetJsonAsync<PersonImageResult>($"/person/{personId}/images")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PersonImageResult>($"/person/{personId}/images");
         }
 
         /// <summary>
@@ -1291,10 +1225,9 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Image>> GetPersonTaggedImagesAsync(int personId)
+        public Task<PagedResult<Image>> GetPersonTaggedImagesAsync(int personId)
         {
-            return await GetJsonAsync<PagedResult<Image>>($"/person/{personId}/tagged_images")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Image>>($"/person/{personId}/tagged_images");
         }
 
         /// <summary>
@@ -1302,30 +1235,27 @@
         /// </summary>
         /// <param name="personId">Id of the person.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TranslationsResult<PersonTranslationData>> GetPersonTranslationsAsync(int personId)
+        public Task<TranslationsResult<PersonTranslationData>> GetPersonTranslationsAsync(int personId)
         {
-            return await GetJsonAsync<TranslationsResult<PersonTranslationData>>($"/person/{personId}/translations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TranslationsResult<PersonTranslationData>>($"/person/{personId}/translations");
         }
 
         /// <summary>
         /// Get the most newly created person. This is a live response and will continuously change.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PersonDetails> GetLatestPersonAsync()
+        public Task<PersonDetails> GetLatestPersonAsync()
         {
-            return await GetJsonAsync<PersonDetails>("/person/latest")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PersonDetails>("/person/latest");
         }
 
         /// <summary>
         /// Get the list of popular people on tmdb. This list updates daily.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Person>> GetPopularPeopleAsync()
+        public Task<PagedResult<Person>> GetPopularPeopleAsync()
         {
-            return await GetJsonAsync<PagedResult<Person>>("/person/popular")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Person>>("/person/popular");
         }
 
         /// <summary>
@@ -1333,15 +1263,14 @@
         /// </summary>
         /// <param name="reviewId">Id of the review.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ReviewDetails> GetReviewDetailsAsync(string reviewId)
+        public Task<ReviewDetails> GetReviewDetailsAsync(string reviewId)
         {
             if (string.IsNullOrWhiteSpace(reviewId))
             {
                 throw new ArgumentException($"'{nameof(reviewId)}' cannot be null or whitespace", nameof(reviewId));
             }
 
-            return await GetJsonAsync<ReviewDetails>($"/review/{reviewId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<ReviewDetails>($"/review/{reviewId}");
         }
 
         /// <summary>
@@ -1350,7 +1279,7 @@
         /// <param name="query">Query to search.</param>
         /// <param name="page">Page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Organization>> SearchCompaniesAsync(string query, int page = 1)
+        public Task<PagedResult<Organization>> SearchCompaniesAsync(string query, int page = 1)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -1363,8 +1292,7 @@
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<Organization>>("/search/company", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Organization>>("/search/company", parameters);
         }
 
         /// <summary>
@@ -1373,7 +1301,7 @@
         /// <param name="query">Search query.</param>
         /// <param name="page">Page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<SearchCollection>> SearchCollectionsAsync(string query, int page = 1)
+        public Task<PagedResult<SearchCollection>> SearchCollectionsAsync(string query, int page = 1)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -1386,8 +1314,7 @@
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<SearchCollection>>("/search/collection", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<SearchCollection>>("/search/collection", parameters);
         }
 
         /// <summary>
@@ -1396,7 +1323,7 @@
         /// <param name="query">Search query.</param>
         /// <param name="page">page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Keyword>> SearchKeywordsAsync(string query, int page = 1)
+        public Task<PagedResult<Keyword>> SearchKeywordsAsync(string query, int page = 1)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -1409,8 +1336,7 @@
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<Keyword>>("/search/keyword", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Keyword>>("/search/keyword", parameters);
         }
 
         /// <summary>
@@ -1422,7 +1348,7 @@
         /// <param name="page">Page number to query.</param>
         /// <param name="region">Specific country.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> SearchMoviesAsync(string query, int? primaryReleaseYear = null, int? year = null, int page = 1, string region = null)
+        public Task<PagedResult<Movie>> SearchMoviesAsync(string query, int? primaryReleaseYear = null, int? year = null, int page = 1, string region = null)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -1451,8 +1377,7 @@
                 parameters.Add("region", region);
             }
 
-            return await GetJsonAsync<PagedResult<Movie>>("/search/movie", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>("/search/movie", parameters);
         }
 
         // TODO: Search: MultiSearch
@@ -1463,7 +1388,7 @@
         /// <param name="query">Search query.</param>
         /// <param name="page">Page number to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<SearchPeople>> SearchPeopleAsync(string query, int page = 1)
+        public Task<PagedResult<SearchPeople>> SearchPeopleAsync(string query, int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
@@ -1471,8 +1396,7 @@
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<SearchPeople>>("/search/person", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<SearchPeople>>("/search/person", parameters);
         }
 
         /// <summary>
@@ -1482,7 +1406,7 @@
         /// <param name="firstAirYear">First air year of the show.</param>
         /// <param name="page">Query page number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> SearchTVShowsAsync(string query, int? firstAirYear = null, int page = 1)
+        public Task<PagedResult<TVShow>> SearchTVShowsAsync(string query, int? firstAirYear = null, int page = 1)
         {
             if (string.IsNullOrWhiteSpace(query))
             {
@@ -1500,8 +1424,7 @@
                 parameters.Add("first_air_date_year", firstAirYear);
             }
 
-            return await GetJsonAsync<PagedResult<TVShow>>("/search/tv", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>("/search/tv", parameters);
         }
 
         /// <summary>
@@ -1509,15 +1432,14 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TVShowDetails> GetTVShowDetailsAsync(int tvShowId)
+        public Task<TVShowDetails> GetTVShowDetailsAsync(int tvShowId)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["append_to_response"] = "credits,external_ids,content_ratings",
             };
 
-            return await GetJsonAsync<TVShowDetails>($"/tv/{tvShowId}", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<TVShowDetails>($"/tv/{tvShowId}", parameters);
         }
 
         // TODO: TV: GetTVShowAccountStates
@@ -1528,10 +1450,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<AlternativeTitle>> GetTVShowAlternativeTitlesAsync(int tvShowId)
+        public Task<BasicResult<AlternativeTitle>> GetTVShowAlternativeTitlesAsync(int tvShowId)
         {
-            return await GetJsonAsync<BasicResult<AlternativeTitle>>($"/tv/{tvShowId}/alternative_titles")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<AlternativeTitle>>($"/tv/{tvShowId}/alternative_titles");
         }
 
         // TODO: TV: GetTVShowChanges
@@ -1541,10 +1462,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<ContentRatings>> GetTVShowContentRatingsAsync(int tvShowId)
+        public Task<BasicResult<ContentRatings>> GetTVShowContentRatingsAsync(int tvShowId)
         {
-            return await GetJsonAsync<BasicResult<ContentRatings>>($"/tv/{tvShowId}/content_ratings")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<ContentRatings>>($"/tv/{tvShowId}/content_ratings");
         }
 
         /// <summary>
@@ -1552,10 +1472,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Credits> GetTVShowCreditsAsync(int tvShowId)
+        public Task<Credits> GetTVShowCreditsAsync(int tvShowId)
         {
-            return await GetJsonAsync<Credits>($"/tv/{tvShowId}/credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<Credits>($"/tv/{tvShowId}/credits");
         }
 
         /// <summary>
@@ -1566,10 +1485,9 @@
         /// </remarks>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<EpisodeGroup>> GetTVShowEpisodeGroupsAsync(int tvShowId)
+        public Task<BasicResult<EpisodeGroup>> GetTVShowEpisodeGroupsAsync(int tvShowId)
         {
-            return await GetJsonAsync<BasicResult<EpisodeGroup>>($"/tv/{tvShowId}/episode_groups")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<EpisodeGroup>>($"/tv/{tvShowId}/episode_groups");
         }
 
         /// <summary>
@@ -1577,10 +1495,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TVShowExternalIds> GetTVShowExternalIdsAsync(int tvShowId)
+        public Task<TVShowExternalIds> GetTVShowExternalIdsAsync(int tvShowId)
         {
-            return await GetJsonAsync<TVShowExternalIds>($"/tv/{tvShowId}/external_ids")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TVShowExternalIds>($"/tv/{tvShowId}/external_ids");
         }
 
         /// <summary>
@@ -1588,7 +1505,7 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ImagesResult> GetTVShowImagesAsync(int tvShowId)
+        public Task<ImagesResult> GetTVShowImagesAsync(int tvShowId)
         {
             var parameters = new Dictionary<string, object>();
 
@@ -1597,8 +1514,7 @@
                 parameters.Add("include_image_language", _options.ImageFallbackLanguages);
             }
 
-            return await GetJsonAsync<ImagesResult>($"/tv/{tvShowId}/images", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<ImagesResult>($"/tv/{tvShowId}/images", parameters);
         }
 
         /// <summary>
@@ -1606,10 +1522,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<Keyword>> GetTVShowKeywordsAsync(int tvShowId)
+        public Task<BasicResult<Keyword>> GetTVShowKeywordsAsync(int tvShowId)
         {
-            return await GetJsonAsync<BasicResult<Keyword>>($"/tv/{tvShowId}/keywords")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<Keyword>>($"/tv/{tvShowId}/keywords");
         }
 
         /// <summary>
@@ -1617,10 +1532,9 @@
         /// </summary>
         /// <param name="tvShowId">The id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetTVShowRecommendationsAsync(int tvShowId)
+        public Task<PagedResult<TVShow>> GetTVShowRecommendationsAsync(int tvShowId)
         {
-            return await GetJsonAsync<PagedResult<TVShow>>($"/tv/{tvShowId}/recommendations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>($"/tv/{tvShowId}/recommendations");
         }
 
         /// <summary>
@@ -1628,10 +1542,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<ReviewResult> GetTVShowReviewsAsync(int tvShowId)
+        public Task<ReviewResult> GetTVShowReviewsAsync(int tvShowId)
         {
-            return await GetJsonAsync<ReviewResult>($"/tv/{tvShowId}/reviews")
-                .ConfigureAwait(false);
+            return GetJsonAsync<ReviewResult>($"/tv/{tvShowId}/reviews");
         }
 
         /// <summary>
@@ -1639,10 +1552,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<ScreenedTheatrically>> GetTVShowScreenedTheatricallyAsync(int tvShowId)
+        public Task<BasicResult<ScreenedTheatrically>> GetTVShowScreenedTheatricallyAsync(int tvShowId)
         {
-            return await GetJsonAsync<BasicResult<ScreenedTheatrically>>($"/tv/{tvShowId}/screened_theatrically")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<ScreenedTheatrically>>($"/tv/{tvShowId}/screened_theatrically");
         }
 
         /// <summary>
@@ -1652,15 +1564,14 @@
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <param name="page">Specify which page to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<Movie>> GetSimilarTVShowsAsync(int tvShowId, int page = 1)
+        public Task<PagedResult<Movie>> GetSimilarTVShowsAsync(int tvShowId, int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<Movie>>($"/tv/{tvShowId}/similar", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<Movie>>($"/tv/{tvShowId}/similar", parameters);
         }
 
         /// <summary>
@@ -1668,10 +1579,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TranslationsResult<TVShowTranslationData>> GetTVShowTranslationsAsync(int tvShowId)
+        public Task<TranslationsResult<TVShowTranslationData>> GetTVShowTranslationsAsync(int tvShowId)
         {
-            return await GetJsonAsync<TranslationsResult<TVShowTranslationData>>($"/tv/{tvShowId}/translations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TranslationsResult<TVShowTranslationData>>($"/tv/{tvShowId}/translations");
         }
 
         /// <summary>
@@ -1679,10 +1589,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<Video>> GetTVShowVideosAsync(int tvShowId)
+        public Task<BasicResult<Video>> GetTVShowVideosAsync(int tvShowId)
         {
-            return await GetJsonAsync<BasicResult<Video>>($"/tv/{tvShowId}/videos")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<Video>>($"/tv/{tvShowId}/videos");
         }
 
         // TODO: TV: GetTVShowWatchProviders
@@ -1694,7 +1603,7 @@
         /// <param name="value">The value of the rating which is expected to be between 0.5 and 10.0.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetTVShowRatingAsync(int tvShowId, double value, string sessionId)
+        public Task<Response> SetTVShowRatingAsync(int tvShowId, double value, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -1711,8 +1620,7 @@
                 value = value,
             };
 
-            return await PostJsonAsync<Response>($"/tv/{tvShowId}/rating", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/tv/{tvShowId}/rating", parameters, request);
         }
 
         /// <summary>
@@ -1721,7 +1629,7 @@
         /// <param name="tvShowId">The id of the tv show.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> DeleteTVShowRatingAsync(int tvShowId, string sessionId)
+        public Task<Response> DeleteTVShowRatingAsync(int tvShowId, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -1733,8 +1641,7 @@
                 ["session_id"] = sessionId,
             };
 
-            return await DeleteJsonAsync<Response>($"/tv/{tvShowId}/rating", parameters)
-                .ConfigureAwait(false);
+            return DeleteJsonAsync<Response>($"/tv/{tvShowId}/rating", parameters);
         }
 
         /// <summary>
@@ -1742,10 +1649,9 @@
         /// This is a live response and will continuously change.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TVShowDetails> GetLatestTVShowAsync()
+        public Task<TVShowDetails> GetLatestTVShowAsync()
         {
-            return await GetJsonAsync<TVShowDetails>("/tv/latest")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TVShowDetails>("/tv/latest");
         }
 
         /// <summary>
@@ -1753,15 +1659,14 @@
         /// </summary>
         /// <param name="page">Specify which page to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetAiringTodayTVShowsAsync(int page = 1)
+        public Task<PagedResult<TVShow>> GetAiringTodayTVShowsAsync(int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<TVShow>>("/tv/airing_today", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>("/tv/airing_today", parameters);
         }
 
         /// <summary>
@@ -1770,15 +1675,14 @@
         /// </summary>
         /// <param name="page">Specify which page to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetOnTheAirTVShowsAsync(int page = 1)
+        public Task<PagedResult<TVShow>> GetOnTheAirTVShowsAsync(int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<TVShow>>("/tv/on_the_air", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>("/tv/on_the_air", parameters);
         }
 
         /// <summary>
@@ -1786,15 +1690,14 @@
         /// </summary>
         /// <param name="page">Specify which page to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetPopularTVShowsAsync(int page = 1)
+        public Task<PagedResult<TVShow>> GetPopularTVShowsAsync(int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<TVShow>>("/tv/popular", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>("/tv/popular", parameters);
         }
 
         /// <summary>
@@ -1802,15 +1705,14 @@
         /// </summary>
         /// <param name="page">Specify which page to query.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<PagedResult<TVShow>> GetTopRatedTVShowsAsync(int page = 1)
+        public Task<PagedResult<TVShow>> GetTopRatedTVShowsAsync(int page = 1)
         {
             var parameters = new Dictionary<string, object>()
             {
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
-            return await GetJsonAsync<PagedResult<TVShow>>("/tv/top_rated", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<PagedResult<TVShow>>("/tv/top_rated", parameters);
         }
 
         /// <summary>
@@ -1819,10 +1721,9 @@
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <param name="seasonNumber">Season number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<SeasonDetails> GetTVShowSeasonDetailsAsync(int tvShowId, int seasonNumber)
+        public Task<SeasonDetails> GetTVShowSeasonDetailsAsync(int tvShowId, int seasonNumber)
         {
-            return await GetJsonAsync<SeasonDetails>($"/tv/{tvShowId}/season/{seasonNumber}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<SeasonDetails>($"/tv/{tvShowId}/season/{seasonNumber}");
         }
 
         // TODO: TV Seasons: GetTVShowSeasonAccountStates
@@ -1835,10 +1736,9 @@
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <param name="seasonNumber">Season number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<CreditsResult> GetTVShowSeasonCreditsAsync(int tvShowId, int seasonNumber)
+        public Task<CreditsResult> GetTVShowSeasonCreditsAsync(int tvShowId, int seasonNumber)
         {
-            return await GetJsonAsync<CreditsResult>($"/tv/{tvShowId}/season/{seasonNumber}/credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<CreditsResult>($"/tv/{tvShowId}/season/{seasonNumber}/credits");
         }
 
         /// <summary>
@@ -1847,10 +1747,9 @@
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <param name="seasonNumber">Season number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<SeasonExternalIds> GetTVShowSeasonExternalIdsAsync(int tvShowId, int seasonNumber)
+        public Task<SeasonExternalIds> GetTVShowSeasonExternalIdsAsync(int tvShowId, int seasonNumber)
         {
-            return await GetJsonAsync<SeasonExternalIds>($"/tv/{tvShowId}/season/{seasonNumber}/external_ids")
-                .ConfigureAwait(false);
+            return GetJsonAsync<SeasonExternalIds>($"/tv/{tvShowId}/season/{seasonNumber}/external_ids");
         }
 
         /// <summary>
@@ -1859,7 +1758,7 @@
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <param name="seasonNumber">Season number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<SeasonImagesResult> GetTVShowSeasonImagesAsync(int tvShowId, int seasonNumber)
+        public Task<SeasonImagesResult> GetTVShowSeasonImagesAsync(int tvShowId, int seasonNumber)
         {
             var parameters = new Dictionary<string, object>();
 
@@ -1868,8 +1767,7 @@
                 parameters.Add("include_image_language", _options.ImageFallbackLanguages);
             }
 
-            return await GetJsonAsync<SeasonImagesResult>($"/tv/{tvShowId}/season/{seasonNumber}/images", parameters)
-                .ConfigureAwait(false);
+            return GetJsonAsync<SeasonImagesResult>($"/tv/{tvShowId}/season/{seasonNumber}/images", parameters);
         }
 
         /// <summary>
@@ -1878,10 +1776,9 @@
         /// <param name="tvShowId">Id of the tv show.</param>
         /// <param name="seasonNumber">Season number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TranslationsResult<SeasonTranslationData>> GetTVShowSeasonTranslationsAsync(int tvShowId, int seasonNumber)
+        public Task<TranslationsResult<SeasonTranslationData>> GetTVShowSeasonTranslationsAsync(int tvShowId, int seasonNumber)
         {
-            return await GetJsonAsync<TranslationsResult<SeasonTranslationData>>($"/tv/{tvShowId}/season/{seasonNumber}/translations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TranslationsResult<SeasonTranslationData>>($"/tv/{tvShowId}/season/{seasonNumber}/translations");
         }
 
         /// <summary>
@@ -1890,10 +1787,9 @@
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <param name="seasonNumber">Season number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<Video>> GetTVShowSeasonVideosAsync(int tvShowId, int seasonNumber)
+        public Task<BasicResult<Video>> GetTVShowSeasonVideosAsync(int tvShowId, int seasonNumber)
         {
-            return await GetJsonAsync<BasicResult<Video>>($"/tv/{tvShowId}/season/{seasonNumber}/videos")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<Video>>($"/tv/{tvShowId}/season/{seasonNumber}/videos");
         }
 
         /// <summary>
@@ -1903,10 +1799,9 @@
         /// <param name="seasonNumber">Season number.</param>
         /// <param name="episodeNumber">Episode number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<EpisodeDetails> GetTVShowEpisodeDetailsAsync(int tvShowId, int seasonNumber, int episodeNumber)
+        public Task<EpisodeDetails> GetTVShowEpisodeDetailsAsync(int tvShowId, int seasonNumber, int episodeNumber)
         {
-            return await GetJsonAsync<EpisodeDetails>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<EpisodeDetails>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}");
         }
 
         // TODO: TV Episodes: GetTVShowEpisodeAccountStates
@@ -1919,10 +1814,9 @@
         /// <param name="seasonNumber">Season number.</param>
         /// <param name="episodeNumber">Episode number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<EpisodeCreditsResult> GetTVShowEpisodeCreditsAsync(int tvShowId, int seasonNumber, int episodeNumber)
+        public Task<EpisodeCreditsResult> GetTVShowEpisodeCreditsAsync(int tvShowId, int seasonNumber, int episodeNumber)
         {
-            return await GetJsonAsync<EpisodeCreditsResult>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/credits")
-                .ConfigureAwait(false);
+            return GetJsonAsync<EpisodeCreditsResult>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/credits");
         }
 
         /// <summary>
@@ -1932,10 +1826,9 @@
         /// <param name="seasonNumber">Season number.</param>
         /// <param name="episodeNumber">Episode number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<EpisodeExternalIds> GetTVShowEpisodeExternalIdsAsync(int tvShowId, int seasonNumber, int episodeNumber)
+        public Task<EpisodeExternalIds> GetTVShowEpisodeExternalIdsAsync(int tvShowId, int seasonNumber, int episodeNumber)
         {
-            return await GetJsonAsync<EpisodeExternalIds>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/external_ids")
-                .ConfigureAwait(false);
+            return GetJsonAsync<EpisodeExternalIds>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/external_ids");
         }
 
         /// <summary>
@@ -1945,10 +1838,9 @@
         /// <param name="seasonNumber">Season number.</param>
         /// <param name="episodeNumber">Episode number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<EpisodeImagesResult> GetTVShowEpisodeImagesAsync(int tvShowId, int seasonNumber, int episodeNumber)
+        public Task<EpisodeImagesResult> GetTVShowEpisodeImagesAsync(int tvShowId, int seasonNumber, int episodeNumber)
         {
-            return await GetJsonAsync<EpisodeImagesResult>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/images")
-                .ConfigureAwait(false);
+            return GetJsonAsync<EpisodeImagesResult>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/images");
         }
 
         /// <summary>
@@ -1958,10 +1850,9 @@
         /// <param name="seasonNumber">Season number.</param>
         /// <param name="episodeNumber">Episode number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<TranslationsResult<EpisodeTranslationData>> GetTVShowEpisodeTranslationsAsync(int tvShowId, int seasonNumber, int episodeNumber)
+        public Task<TranslationsResult<EpisodeTranslationData>> GetTVShowEpisodeTranslationsAsync(int tvShowId, int seasonNumber, int episodeNumber)
         {
-            return await GetJsonAsync<TranslationsResult<EpisodeTranslationData>>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/translations")
-                .ConfigureAwait(false);
+            return GetJsonAsync<TranslationsResult<EpisodeTranslationData>>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/translations");
         }
 
         /// <summary>
@@ -1973,7 +1864,7 @@
         /// <param name="value">The value of the rating which is expected to be between 0.5 and 10.0.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> SetTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, double value, string sessionId)
+        public Task<Response> SetTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, double value, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -1990,8 +1881,7 @@
                 value = value,
             };
 
-            return await PostJsonAsync<Response>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/rating", parameters, request)
-                .ConfigureAwait(false);
+            return PostJsonAsync<Response>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/rating", parameters, request);
         }
 
         /// <summary>
@@ -2002,7 +1892,7 @@
         /// <param name="episodeNumber">The episode number.</param>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<Response> DeleteTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, string sessionId)
+        public Task<Response> DeleteTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -2014,8 +1904,7 @@
                 ["session_id"] = sessionId,
             };
 
-            return await DeleteJsonAsync<Response>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/rating", parameters)
-                .ConfigureAwait(false);
+            return DeleteJsonAsync<Response>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/rating", parameters);
         }
 
         /// <summary>
@@ -2025,10 +1914,9 @@
         /// <param name="seasonNumber">Season number.</param>
         /// <param name="episodeNumber">Episode number.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<BasicResult<Video>> GetTVShowEpisodeVideosAsync(int tvShowId, int seasonNumber, int episodeNumber)
+        public Task<BasicResult<Video>> GetTVShowEpisodeVideosAsync(int tvShowId, int seasonNumber, int episodeNumber)
         {
-            return await GetJsonAsync<BasicResult<Video>>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/videos")
-                .ConfigureAwait(false);
+            return GetJsonAsync<BasicResult<Video>>($"/tv/{tvShowId}/season/{seasonNumber}/episode/{episodeNumber}/videos");
         }
 
         /// <summary>
@@ -2048,10 +1936,9 @@
         /// </remarks>
         /// <param name="episodeGroupId">If of the episode group.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public async Task<EpisodeGroupDetails> GetTVShowEpisodeGroupsDetailsAsync(string episodeGroupId)
+        public Task<EpisodeGroupDetails> GetTVShowEpisodeGroupsDetailsAsync(string episodeGroupId)
         {
-            return await GetJsonAsync<EpisodeGroupDetails>($"/tv/episode_group/{episodeGroupId}")
-                .ConfigureAwait(false);
+            return GetJsonAsync<EpisodeGroupDetails>($"/tv/episode_group/{episodeGroupId}");
         }
 
         /// <summary>
