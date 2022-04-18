@@ -1359,7 +1359,7 @@
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = System.Web.HttpUtility.UrlEncode(query),
+                ["query"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -1382,7 +1382,7 @@
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = System.Web.HttpUtility.UrlEncode(query),
+                ["query"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -1405,7 +1405,7 @@
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = System.Web.HttpUtility.UrlEncode(query),
+                ["query"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -1431,7 +1431,7 @@
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = System.Web.HttpUtility.UrlEncode(query),
+                ["query"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -1467,7 +1467,7 @@
         {
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = System.Web.HttpUtility.UrlEncode(query),
+                ["query"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
@@ -1491,7 +1491,7 @@
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = System.Web.HttpUtility.UrlEncode(query),
+                ["query"] = query,
                 ["page"] = page.ToString(CultureInfo.InvariantCulture),
             };
 
