@@ -13,6 +13,10 @@
         <DebugType>embedded</DebugType>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
     <PropertyGroup>
         <AnalysisLevel>latest</AnalysisLevel>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -33,9 +37,8 @@
     -->
 
     <PropertyGroup>
-        <Version>1.0.0-preview.7</Version>
         <Authors>Peyman Mohammadi</Authors>
-        <Copyright>© 2020 Peyman Mohammadi</Copyright>
+        <Copyright>© 2022 Peyman Mohammadi</Copyright>
         <PackageId>MovieCollection.TheMovieDatabase</PackageId>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>movie; series; api; wrapper; tmdb</PackageTags>
