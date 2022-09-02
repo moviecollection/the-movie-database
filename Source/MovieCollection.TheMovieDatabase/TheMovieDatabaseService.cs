@@ -1394,6 +1394,11 @@
                 parameters.Add("year", search.Year);
             }
 
+            if (!string.IsNullOrWhiteSpace(search.Language))
+            {
+                parameters.Add("language", search.Language);
+            }
+
             if (!string.IsNullOrWhiteSpace(search.Region))
             {
                 parameters.Add("region", search.Region);
@@ -2085,7 +2090,13 @@
             }
 
             parameters.Add("api_key", _options.ApiKey);
-            parameters.Add("language", _options.Language);
+
+            if (!parameters.ContainsKey("language") &&
+                !string.IsNullOrWhiteSpace(_options.Language))
+            {
+                parameters.Add("language", _options.Language);
+            }
+
             parameters.Add("include_adult", _options.IsAdultIncluded);
 
             url += GetParametersString(parameters);
