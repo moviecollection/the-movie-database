@@ -1440,20 +1440,51 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<PagedResult<TVShow>> SearchTVShowsAsync(string query, int? firstAirYear = null, int page = 1)
         {
-            if (string.IsNullOrWhiteSpace(query))
+            var search = new NewSearchTVShow
             {
-                throw new ArgumentException($"'{nameof(query)}' cannot be null or whitespace", nameof(query));
+                Query = query,
+                FirstAirDateYear = firstAirYear,
+                Page = page,
+            };
+
+            return SearchTVShowsAsync(search);
+        }
+
+        /// <summary>
+        /// Search for a TV show.
+        /// </summary>
+        /// <param name="search">An instance of the <see cref="NewSearchTVShow"/> class.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task<PagedResult<TVShow>> SearchTVShowsAsync(NewSearchTVShow search)
+        {
+            if (search is null)
+            {
+                throw new ArgumentNullException(nameof(search));
+            }
+
+            if (string.IsNullOrWhiteSpace(search.Query))
+            {
+                throw new ArgumentException($"'{nameof(search.Query)}' cannot be null or whitespace", nameof(search));
             }
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = query,
-                ["page"] = page.ToString(CultureInfo.InvariantCulture),
+                ["query"] = search.Query,
             };
 
-            if (firstAirYear.HasValue && firstAirYear > 1928)
+            if (search.FirstAirDateYear.HasValue)
             {
-                parameters.Add("first_air_date_year", firstAirYear);
+                parameters.Add("first_air_date_year", search.FirstAirDateYear);
+            }
+
+            if (!string.IsNullOrWhiteSpace(search.Language))
+            {
+                parameters.Add("language", search.Language);
+            }
+
+            if (search.Page.HasValue)
+            {
+                parameters.Add("page", search.Page);
             }
 
             return GetJsonAsync<PagedResult<TVShow>>("/search/tv", parameters);
