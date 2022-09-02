@@ -1350,31 +1350,58 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<PagedResult<Movie>> SearchMoviesAsync(string query, int? primaryReleaseYear = null, int? year = null, int page = 1, string region = null)
         {
-            if (string.IsNullOrWhiteSpace(query))
+            var search = new NewSearchMovie
             {
-                throw new ArgumentException($"'{nameof(query)}' cannot be null or whitespace", nameof(query));
+                Query = query,
+                Year = year,
+                Page = page,
+                Region = region,
+                PrimaryReleaseYear = primaryReleaseYear,
+            };
+
+            return SearchMoviesAsync(search);
+        }
+
+        /// <summary>
+        /// Search for movies.
+        /// </summary>
+        /// <param name="search">An instance of the <see cref="NewSearchMovie"/> class.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task<PagedResult<Movie>> SearchMoviesAsync(NewSearchMovie search)
+        {
+            if (search is null)
+            {
+                throw new ArgumentNullException(nameof(search));
+            }
+
+            if (string.IsNullOrWhiteSpace(search.Query))
+            {
+                throw new ArgumentException($"'{nameof(search.Query)}' cannot be null or whitespace", nameof(search));
             }
 
             var parameters = new Dictionary<string, object>()
             {
-                ["query"] = query,
-                ["page"] = page.ToString(CultureInfo.InvariantCulture),
+                ["query"] = search.Query,
             };
 
-            if (primaryReleaseYear.HasValue && primaryReleaseYear.Value > 1888)
+            if (search.PrimaryReleaseYear.HasValue)
             {
-                parameters.Add("primary_release_year", primaryReleaseYear);
+                parameters.Add("primary_release_year", search.PrimaryReleaseYear);
             }
 
-            if (year.HasValue && year.Value > 1888)
+            if (search.Year.HasValue)
             {
-                parameters.Add("year", year);
+                parameters.Add("year", search.Year);
             }
 
-            // Specify a ISO 3166-1 code to filter release dates. Must be uppercase.
-            if (!string.IsNullOrWhiteSpace(region))
+            if (!string.IsNullOrWhiteSpace(search.Region))
             {
-                parameters.Add("region", region);
+                parameters.Add("region", search.Region);
+            }
+
+            if (search.Page.HasValue)
+            {
+                parameters.Add("page", search.Page);
             }
 
             return GetJsonAsync<PagedResult<Movie>>("/search/movie", parameters);
