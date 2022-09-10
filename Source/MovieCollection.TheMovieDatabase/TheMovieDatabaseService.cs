@@ -1350,7 +1350,7 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<PagedResult<Movie>> SearchMoviesAsync(string query, int? primaryReleaseYear = null, int? year = null, int page = 1, string region = null)
         {
-            var search = new NewSearchMovie
+            var search = new NewMovieSearch
             {
                 Query = query,
                 Year = year,
@@ -1365,9 +1365,9 @@
         /// <summary>
         /// Search for movies.
         /// </summary>
-        /// <param name="search">An instance of the <see cref="NewSearchMovie"/> class.</param>
+        /// <param name="search">An instance of the <see cref="NewMovieSearch"/> class.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<PagedResult<Movie>> SearchMoviesAsync(NewSearchMovie search)
+        public Task<PagedResult<Movie>> SearchMoviesAsync(NewMovieSearch search)
         {
             if (search is null)
             {
@@ -1440,7 +1440,7 @@
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task<PagedResult<TVShow>> SearchTVShowsAsync(string query, int? firstAirYear = null, int page = 1)
         {
-            var search = new NewSearchTVShow
+            var search = new NewTVShowSearch
             {
                 Query = query,
                 FirstAirDateYear = firstAirYear,
@@ -1453,9 +1453,9 @@
         /// <summary>
         /// Search for a TV show.
         /// </summary>
-        /// <param name="search">An instance of the <see cref="NewSearchTVShow"/> class.</param>
+        /// <param name="search">An instance of the <see cref="NewTVShowSearch"/> class.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<PagedResult<TVShow>> SearchTVShowsAsync(NewSearchTVShow search)
+        public Task<PagedResult<TVShow>> SearchTVShowsAsync(NewTVShowSearch search)
         {
             if (search is null)
             {
