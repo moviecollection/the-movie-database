@@ -13,8 +13,6 @@
         {
             ApiAddress = "https://api.themoviedb.org/3";
             ImageAddress = "https://image.tmdb.org/t/p";
-            ImageFallbackLanguages = "en,null";
-            Language = "en-US";
         }
 
         /// <summary>
@@ -31,27 +29,27 @@
         }
 
         /// <summary>
-        /// Gets or sets api base address.
+        /// Gets or sets the api endpoint.
         /// </summary>
         public string ApiAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets images base address.
+        /// Gets or sets the images endpoint.
         /// </summary>
         public string ImageAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets api key.
+        /// Gets or sets the api key.
         /// </summary>
         public string ApiKey { get; set; }
 
         /// <summary>
-        /// Gets or sets language.
+        /// Gets or sets the default language.
         /// </summary>
         public string Language { get; set; }
 
         /// <summary>
-        /// Gets or sets image fallback languages. See remarks.
+        /// Gets or sets the image fallback languages.
         /// </summary>
         /// <remarks>
         /// This should be a comma seperated value like: en,null.
@@ -61,6 +59,6 @@
         /// <summary>
         /// Gets or sets a value indicating whether adult content should be included in the results.
         /// </summary>
-        public bool IsAdultIncluded { get; set; }
+        public bool? IsAdultIncluded { get; set; }
     }
 }

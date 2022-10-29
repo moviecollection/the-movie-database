@@ -2128,7 +2128,10 @@
                 parameters.Add("language", _options.Language);
             }
 
-            parameters.Add("include_adult", _options.IsAdultIncluded);
+            if (_options.IsAdultIncluded.HasValue)
+            {
+                parameters.Add("include_adult", _options.IsAdultIncluded);
+            }
 
             url += GetParametersString(parameters);
 
