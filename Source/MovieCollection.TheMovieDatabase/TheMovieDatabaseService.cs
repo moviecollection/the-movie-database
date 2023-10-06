@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Net.Http;
+    using System.Net.Http.Headers;
     using System.Text;
     using System.Threading.Tasks;
     using MovieCollection.TheMovieDatabase.Enums;
@@ -2140,6 +2141,13 @@
 
         private async Task<T> SendRequestAsync<T>(HttpRequestMessage request)
         {
+            // Set the user agent if it was explicitly set via the options.
+            // This overrides the default request headers.
+            if (_options.ProductInformation != null)
+            {
+                request.Headers.UserAgent.Add(new ProductInfoHeaderValue(_options.ProductInformation));
+            }
+
             using var response = await _httpClient.SendAsync(request)
                 .ConfigureAwait(false);
 

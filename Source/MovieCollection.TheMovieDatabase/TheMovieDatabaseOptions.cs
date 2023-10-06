@@ -1,5 +1,7 @@
 ﻿namespace MovieCollection.TheMovieDatabase
 {
+    using System.Net.Http.Headers;
+
     /// <summary>
     /// The <c>TheMovieDatabaseOptions</c> class.
     /// </summary>
@@ -60,5 +62,13 @@
         /// Gets or sets a value indicating whether adult content should be included in the results.
         /// </summary>
         public bool? IsAdultIncluded { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name (and version) of the product using this library.
+        /// </summary>
+        /// <remarks>
+        /// This overrides the <see cref="System.Net.Http.HttpClient.DefaultRequestHeaders"/>.
+        /// </remarks>
+        public ProductHeaderValue ProductInformation { get; set; }
     }
 }
