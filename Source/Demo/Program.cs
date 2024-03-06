@@ -31,20 +31,22 @@ Start:
             Console.Clear();
             Console.WriteLine("Welcome to 'The Movie Database' demo.\n");
 
-            Console.WriteLine("1. Get Movie Details.");
-            Console.WriteLine("2. Get TV Show Details");
-            Console.WriteLine("3. Get Movie Images");
-            Console.WriteLine("4. Get TV Show Images");
-            Console.WriteLine("5. Get Movie Recommendations");
-            Console.WriteLine("6. Get TV Show Recommendations");
-            Console.WriteLine("7. Get Collection Details");
-            Console.WriteLine("8. Get Person Movie Credits");
-            Console.WriteLine("9. Get Person TV Show Credits");
-            Console.WriteLine("10. Get Person Combined Credits");
-            Console.WriteLine("11. Discover Movies");
-            Console.WriteLine("12. Discover TV Shows");
-            Console.WriteLine("13. Authenticate");
-            Console.WriteLine("14. Get Account Details");
+            Console.WriteLine("1. Search Movies.");
+            Console.WriteLine("2. Search TV Shows");
+            Console.WriteLine("3. Get Movie Details");
+            Console.WriteLine("4. Get TV Show Details");
+            Console.WriteLine("5. Get Movie Images");
+            Console.WriteLine("6. Get TV Show Images");
+            Console.WriteLine("7. Get Movie Recommendations");
+            Console.WriteLine("8. Get TV Show Recommendations");
+            Console.WriteLine("9. Get Collection Details");
+            Console.WriteLine("10. Get Person Movie Credits");
+            Console.WriteLine("11. Get Person TV Show Credits");
+            Console.WriteLine("12. Get Person Combined Credits");
+            Console.WriteLine("13. Discover Movies");
+            Console.WriteLine("14. Discover TV Shows");
+            Console.WriteLine("15. Authenticate");
+            Console.WriteLine("16. Get Account Details");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -53,20 +55,22 @@ Start:
 
             var task = input switch
             {
-                1 => GetMovieDetailsAsync(),
-                2 => GetTVShowDetailsAsync(),
-                3 => GetMovieImagesAsync(),
-                4 => GetTVShowImagesAsync(),
-                5 => GetMovieRecommendationsAsync(),
-                6 => GetTVShowRecommendationsAsync(),
-                7 => GetCollectionDetailsAsync(),
-                8 => GetPersonMovieCreditsAsync(),
-                9 => GetPersonTVShowCreditsAsync(),
-                10 => GetPersonCombinedCreditsAsync(),
-                11 => DiscoverMoviesAsync(),
-                12 => DiscoverTVShowsAsync(),
-                13 => AuthenticateAsync(),
-                14 => GetAccountDetailsAsync(),
+                1 => SearchMoviesAsync(),
+                2 => SearchTVShowsAsync(),
+                3 => GetMovieDetailsAsync(),
+                4 => GetTVShowDetailsAsync(),
+                5 => GetMovieImagesAsync(),
+                6 => GetTVShowImagesAsync(),
+                7 => GetMovieRecommendationsAsync(),
+                8 => GetTVShowRecommendationsAsync(),
+                9 => GetCollectionDetailsAsync(),
+                10 => GetPersonMovieCreditsAsync(),
+                11 => GetPersonTVShowCreditsAsync(),
+                12 => GetPersonCombinedCreditsAsync(),
+                13 => DiscoverMoviesAsync(),
+                14 => DiscoverTVShowsAsync(),
+                15 => AuthenticateAsync(),
+                16 => GetAccountDetailsAsync(),
                 _ => null,
             };
 
@@ -80,6 +84,50 @@ Start:
             Console.ReadKey();
 
             goto Start;
+        }
+
+        private static async Task SearchMoviesAsync()
+        {
+            var search = new NewMovieSearch
+            {
+                Query = "three colors",
+                PrimaryReleaseYear = 1994,
+                // This overrides the 'options.Language' if exists.
+                // Language = "fr",
+                // ...
+            };
+
+            var result = await _service.SearchMoviesAsync(search);
+
+            foreach (var item in result.Results)
+            {
+                Console.WriteLine("Title: {0}", item.Title);
+                Console.WriteLine("ReleaseDate: {0}", item.ReleaseDate);
+                Console.WriteLine("Overview: {0}", item.Overview);
+                Console.WriteLine("******************************");
+            }
+        }
+
+        private static async Task SearchTVShowsAsync()
+        {
+            var search = new NewTVShowSearch
+            {
+                Query = "frasier",
+                // FirstAirDateYear = 1993,
+                // This overrides the 'options.Language' if exists.
+                // Language = "fr",
+                // ...
+            };
+
+            var result = await _service.SearchTVShowsAsync(search);
+
+            foreach (var item in result.Results)
+            {
+                Console.WriteLine("Name: {0}", item.Name);
+                Console.WriteLine("FirstAirDate: {0}", item.FirstAirDate);
+                Console.WriteLine("Overview: {0}", item.Overview);
+                Console.WriteLine("******************************");
+            }
         }
 
         private static async Task GetMovieDetailsAsync()
