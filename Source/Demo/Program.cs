@@ -47,6 +47,7 @@ Start:
             Console.WriteLine("14. Discover TV Shows");
             Console.WriteLine("15. Authenticate");
             Console.WriteLine("16. Get Account Details");
+            Console.WriteLine("99. Error Handling");
 
             Console.Write("\nPlease select an option: ");
             int input = Convert.ToInt32(Console.ReadLine());
@@ -71,6 +72,7 @@ Start:
                 14 => DiscoverTVShowsAsync(),
                 15 => AuthenticateAsync(),
                 16 => GetAccountDetailsAsync(),
+                99 => GetErrorAsync(),
                 _ => null,
             };
 
@@ -400,6 +402,18 @@ Start:
             Console.WriteLine("Iso639_1: {0}", account.Iso639_1);
             Console.WriteLine("Iso3166_1: {0}", account.Iso3166_1);
             Console.WriteLine("IncludeAdult: {0}", account.IncludeAdult);
+        }
+
+        private static async Task GetErrorAsync()
+        {
+            try
+            {
+                var result = await _service.CreateSessionAsync("1234");
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
