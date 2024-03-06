@@ -88,7 +88,7 @@ Start:
 
         private static async Task SearchMoviesAsync()
         {
-            var search = new NewMovieSearch
+            var search = new NewSearchMovie
             {
                 Query = "three colors",
                 PrimaryReleaseYear = 1994,
@@ -110,7 +110,7 @@ Start:
 
         private static async Task SearchTVShowsAsync()
         {
-            var search = new NewTVShowSearch
+            var search = new NewSearchTVShow
             {
                 Query = "frasier",
                 // FirstAirDateYear = 1993,

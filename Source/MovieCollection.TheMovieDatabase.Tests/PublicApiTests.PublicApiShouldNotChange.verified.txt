@@ -129,10 +129,10 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.SearchCollection>> SearchCollectionsAsync(string query, int page = 1) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Organization>> SearchCompaniesAsync(string query, int page = 1) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Keyword>> SearchKeywordsAsync(string query, int page = 1) { }
-        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> SearchMoviesAsync(MovieCollection.TheMovieDatabase.Models.NewMovieSearch search) { }
+        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> SearchMoviesAsync(MovieCollection.TheMovieDatabase.Models.NewSearchMovie search) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> SearchMoviesAsync(string query, int? primaryReleaseYear = default, int? year = default, int page = 1, string region = null) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.SearchPeople>> SearchPeopleAsync(string query, int page = 1) { }
-        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.TVShow>> SearchTVShowsAsync(MovieCollection.TheMovieDatabase.Models.NewTVShowSearch search) { }
+        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.TVShow>> SearchTVShowsAsync(MovieCollection.TheMovieDatabase.Models.NewSearchTVShow search) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.TVShow>> SearchTVShowsAsync(string query, int? firstAirYear = default, int page = 1) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Response> SetMovieFavoriteAsync(int movieId, bool isFavorite, int accountId, string sessionId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Response> SetMovieRatingAsync(int movieId, double value, string sessionId) { }
@@ -958,9 +958,9 @@ namespace MovieCollection.TheMovieDatabase.Models
             FirstAirDate = 2,
         }
     }
-    public class NewMovieSearch
+    public class NewSearchMovie
     {
-        public NewMovieSearch() { }
+        public NewSearchMovie() { }
         public string Language { get; set; }
         public int? Page { get; set; }
         public int? PrimaryReleaseYear { get; set; }
@@ -968,9 +968,9 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string Region { get; set; }
         public int? Year { get; set; }
     }
-    public class NewTVShowSearch
+    public class NewSearchTVShow
     {
-        public NewTVShowSearch() { }
+        public NewSearchTVShow() { }
         public int? FirstAirDateYear { get; set; }
         public string Language { get; set; }
         public int? Page { get; set; }
