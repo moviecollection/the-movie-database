@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class PagedResult<T>
+    public class PagedResult<T> : Response
         where T : class
     {
         [JsonProperty("page")]

@@ -1,7 +1,14 @@
 ﻿namespace MovieCollection.TheMovieDatabase.Models
 {
-    public class Credits : BasicCredits<Cast, Crew>
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
+    public class Credits
     {
-        // For future use.
+        [JsonProperty("cast")]
+        public List<Cast> Cast { get; set; }
+
+        [JsonProperty("crew")]
+        public List<Crew> Crew { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class ExternalIds
+    public class ExternalIds : Response
     {
         [JsonProperty("id")]
         public int Id { get; set; }

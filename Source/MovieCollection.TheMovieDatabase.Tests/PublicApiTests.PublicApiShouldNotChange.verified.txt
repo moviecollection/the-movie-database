@@ -25,7 +25,7 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.SessionResult> CreateSessionAsync(string requestToken) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.SessionResult> CreateSessionWithLoginAsync(string username, string password, string requestToken) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Response> DeleteMovieRatingAsync(int movieId, string sessionId) { }
-        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicSessionResult> DeleteSessionAsync(string sessionId) { }
+        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Response> DeleteSessionAsync(string sessionId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Response> DeleteTVShowEpisodeRatingAsync(int tvShowId, int seasonNumber, int episodeNumber, string sessionId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Response> DeleteTVShowRatingAsync(int tvShowId, string sessionId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> DiscoverMoviesAsync(MovieCollection.TheMovieDatabase.Models.NewDiscoverMovie discover) { }
@@ -50,7 +50,7 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CompanyDetails> GetCompanyDetailsAsync(int companyId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.OrganizationImages> GetCompanyImagesAsync(int companyId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CreditDetailsResult> GetCreditDetailsAsync(string creditId) { }
-        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Keyword> GetKeywordDetailsAsync(int keywordId) { }
+        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.KeywordDetails> GetKeywordDetailsAsync(int keywordId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> GetKeywordMoviesAsync(int keywordId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.MovieDetails> GetLatestMovieAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PersonDetails> GetLatestPersonAsync() { }
@@ -95,7 +95,7 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.AlternativeTitle>> GetTVShowAlternativeTitlesAsync(int tvShowId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CertificationsResult> GetTVShowCertificationsAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.ContentRatings>> GetTVShowContentRatingsAsync(int tvShowId) { }
-        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.Credits> GetTVShowCreditsAsync(int tvShowId) { }
+        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CreditsResult> GetTVShowCreditsAsync(int tvShowId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.TVShowDetails> GetTVShowDetailsAsync(int tvShowId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.EpisodeCreditsResult> GetTVShowEpisodeCreditsAsync(int tvShowId, int seasonNumber, int episodeNumber) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.EpisodeDetails> GetTVShowEpisodeDetailsAsync(int tvShowId, int seasonNumber, int episodeNumber) { }
@@ -105,7 +105,7 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.EpisodeImagesResult> GetTVShowEpisodeImagesAsync(int tvShowId, int seasonNumber, int episodeNumber) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.TranslationsResult<MovieCollection.TheMovieDatabase.Models.EpisodeTranslationData>> GetTVShowEpisodeTranslationsAsync(int tvShowId, int seasonNumber, int episodeNumber) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.Video>> GetTVShowEpisodeVideosAsync(int tvShowId, int seasonNumber, int episodeNumber) { }
-        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.TVShowExternalIds> GetTVShowExternalIdsAsync(int tvShowId) { }
+        public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.TVShowExternalIdsResult> GetTVShowExternalIdsAsync(int tvShowId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.GenresResult> GetTVShowGenresAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.ImagesResult> GetTVShowImagesAsync(int tvShowId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.Keyword>> GetTVShowKeywordsAsync(int tvShowId) { }
@@ -194,7 +194,7 @@ namespace MovieCollection.TheMovieDatabase.Enums
 }
 namespace MovieCollection.TheMovieDatabase.Models
 {
-    public class AccountDetails
+    public class AccountDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public AccountDetails() { }
         [Newtonsoft.Json.JsonProperty("id")]
@@ -392,17 +392,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("vote_count")]
         public int VoteCount { get; set; }
     }
-    public class BasicCredits<TCast, TCrew>
-        where TCast :  class
-        where TCrew :  class
-    {
-        public BasicCredits() { }
-        [Newtonsoft.Json.JsonProperty("cast")]
-        public System.Collections.Generic.List<TCast> Cast { get; set; }
-        [Newtonsoft.Json.JsonProperty("crew")]
-        public System.Collections.Generic.List<TCrew> Crew { get; set; }
-    }
-    public class BasicResult<T>
+    public class BasicResult<T> : MovieCollection.TheMovieDatabase.Models.Response
         where T :  class
     {
         public BasicResult() { }
@@ -410,12 +400,6 @@ namespace MovieCollection.TheMovieDatabase.Models
         public int Id { get; set; }
         [Newtonsoft.Json.JsonProperty("results")]
         public System.Collections.Generic.List<T> Results { get; set; }
-    }
-    public class BasicSessionResult
-    {
-        public BasicSessionResult() { }
-        [Newtonsoft.Json.JsonProperty("success")]
-        public bool Success { get; set; }
     }
     public class Cast : MovieCollection.TheMovieDatabase.Models.BaseCredit
     {
@@ -437,7 +421,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("certification")]
         public string Title { get; set; }
     }
-    public class CertificationsResult
+    public class CertificationsResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public CertificationsResult() { }
         [Newtonsoft.Json.JsonProperty("certifications")]
@@ -455,13 +439,21 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("poster_path")]
         public string PosterPath { get; set; }
     }
-    public class CollectionDetails : MovieCollection.TheMovieDatabase.Models.Collection
+    public class CollectionDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public CollectionDetails() { }
+        [Newtonsoft.Json.JsonProperty("backdrop_path")]
+        public string BackdropPath { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
         [Newtonsoft.Json.JsonProperty("overview")]
         public string Overview { get; set; }
         [Newtonsoft.Json.JsonProperty("parts")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Movie> Parts { get; set; }
+        [Newtonsoft.Json.JsonProperty("poster_path")]
+        public string PosterPath { get; set; }
     }
     public class CollectionTranslationData
     {
@@ -473,7 +465,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
     }
-    public class CompanyDetails : MovieCollection.TheMovieDatabase.Models.Organization
+    public class CompanyDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public CompanyDetails() { }
         [Newtonsoft.Json.JsonProperty("description")]
@@ -482,6 +474,14 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string Headquarters { get; set; }
         [Newtonsoft.Json.JsonProperty("homepage")]
         public System.Uri Homepage { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("logo_path")]
+        public string LogoPath { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
+        [Newtonsoft.Json.JsonProperty("origin_country")]
+        public string OriginCountry { get; set; }
         [Newtonsoft.Json.JsonProperty("parent_company")]
         public MovieCollection.TheMovieDatabase.Models.Organization ParentCompany { get; set; }
     }
@@ -501,7 +501,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("rating")]
         public string Rating { get; set; }
     }
-    public class CreditDetailsResult
+    public class CreditDetailsResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public CreditDetailsResult() { }
         [Newtonsoft.Json.JsonProperty("credit_type")]
@@ -535,13 +535,21 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("profile_path")]
         public string ProfilePath { get; set; }
     }
-    public class Credits : MovieCollection.TheMovieDatabase.Models.BasicCredits<MovieCollection.TheMovieDatabase.Models.Cast, MovieCollection.TheMovieDatabase.Models.Crew>
+    public class Credits
     {
         public Credits() { }
+        [Newtonsoft.Json.JsonProperty("cast")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> Cast { get; set; }
+        [Newtonsoft.Json.JsonProperty("crew")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Crew> Crew { get; set; }
     }
-    public class CreditsResult : MovieCollection.TheMovieDatabase.Models.Credits
+    public class CreditsResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public CreditsResult() { }
+        [Newtonsoft.Json.JsonProperty("cast")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> Cast { get; set; }
+        [Newtonsoft.Json.JsonProperty("crew")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Crew> Crew { get; set; }
         [Newtonsoft.Json.JsonProperty("id")]
         public int Id { get; set; }
     }
@@ -559,21 +567,47 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("show_id")]
         public int ShowId { get; set; }
     }
-    public class EpisodeCreditsResult : MovieCollection.TheMovieDatabase.Models.CreditsResult
+    public class EpisodeCreditsResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public EpisodeCreditsResult() { }
-        [Newtonsoft.Json.JsonProperty("guest_stars")]
-        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> GuestStars { get; set; }
-    }
-    public class EpisodeDetails : MovieCollection.TheMovieDatabase.Models.BaseEpisode
-    {
-        public EpisodeDetails() { }
+        [Newtonsoft.Json.JsonProperty("cast")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> Cast { get; set; }
         [Newtonsoft.Json.JsonProperty("crew")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Crew> Crew { get; set; }
         [Newtonsoft.Json.JsonProperty("guest_stars")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> GuestStars { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
     }
-    public class EpisodeExternalIds
+    public class EpisodeDetails : MovieCollection.TheMovieDatabase.Models.Response
+    {
+        public EpisodeDetails() { }
+        [Newtonsoft.Json.JsonProperty("air_date")]
+        public string AirDate { get; set; }
+        [Newtonsoft.Json.JsonProperty("crew")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Crew> Crew { get; set; }
+        [Newtonsoft.Json.JsonProperty("episode_number")]
+        public int EpisodeNumber { get; set; }
+        [Newtonsoft.Json.JsonProperty("guest_stars")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> GuestStars { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
+        [Newtonsoft.Json.JsonProperty("overview")]
+        public string Overview { get; set; }
+        [Newtonsoft.Json.JsonProperty("production_code")]
+        public string ProductionCode { get; set; }
+        [Newtonsoft.Json.JsonProperty("season_number")]
+        public int SeasonNumber { get; set; }
+        [Newtonsoft.Json.JsonProperty("still_path")]
+        public string StillPath { get; set; }
+        [Newtonsoft.Json.JsonProperty("vote_average")]
+        public double VoteAverage { get; set; }
+        [Newtonsoft.Json.JsonProperty("vote_count")]
+        public int VoteCount { get; set; }
+    }
+    public class EpisodeExternalIds : MovieCollection.TheMovieDatabase.Models.Response
     {
         public EpisodeExternalIds() { }
         [Newtonsoft.Json.JsonProperty("freebase_id")]
@@ -610,13 +644,27 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("type")]
         public int Type { get; set; }
     }
-    public class EpisodeGroupDetails : MovieCollection.TheMovieDatabase.Models.EpisodeGroup
+    public class EpisodeGroupDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public EpisodeGroupDetails() { }
+        [Newtonsoft.Json.JsonProperty("description")]
+        public string Description { get; set; }
+        [Newtonsoft.Json.JsonProperty("episode_count")]
+        public int EpisodeCount { get; set; }
+        [Newtonsoft.Json.JsonProperty("group_count")]
+        public int GroupCount { get; set; }
         [Newtonsoft.Json.JsonProperty("groups")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Group> Groups { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public string Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
+        [Newtonsoft.Json.JsonProperty("network")]
+        public MovieCollection.TheMovieDatabase.Models.Organization Network { get; set; }
+        [Newtonsoft.Json.JsonProperty("type")]
+        public int Type { get; set; }
     }
-    public class EpisodeImagesResult
+    public class EpisodeImagesResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public EpisodeImagesResult() { }
         [Newtonsoft.Json.JsonProperty("id")]
@@ -632,7 +680,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("overview")]
         public string Overview { get; set; }
     }
-    public class ExternalIds
+    public class ExternalIds : MovieCollection.TheMovieDatabase.Models.Response
     {
         public ExternalIds() { }
         [Newtonsoft.Json.JsonProperty("facebook_id")]
@@ -646,7 +694,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("twitter_id")]
         public string TwitterId { get; set; }
     }
-    public class Find
+    public class Find : MovieCollection.TheMovieDatabase.Models.Response
     {
         public Find() { }
         [Newtonsoft.Json.JsonProperty("tv_episode_results")]
@@ -668,7 +716,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("name")]
         public string Name { get; set; }
     }
-    public class GenresResult
+    public class GenresResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public GenresResult() { }
         [Newtonsoft.Json.JsonProperty("genres")]
@@ -712,7 +760,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("width")]
         public int Width { get; set; }
     }
-    public class ImagesResult
+    public class ImagesResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public ImagesResult() { }
         [Newtonsoft.Json.JsonProperty("backdrops")]
@@ -722,6 +770,12 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("posters")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Image> Posters { get; set; }
     }
+    public class Items<T>
+    {
+        public Items() { }
+        [Newtonsoft.Json.JsonProperty("results")]
+        public System.Collections.Generic.List<T> Results { get; set; }
+    }
     public class Keyword
     {
         public Keyword() { }
@@ -730,7 +784,15 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("name")]
         public string Name { get; set; }
     }
-    public class KeywordsResult
+    public class KeywordDetails : MovieCollection.TheMovieDatabase.Models.Response
+    {
+        public KeywordDetails() { }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
+    }
+    public class KeywordsResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public KeywordsResult() { }
         [Newtonsoft.Json.JsonProperty("id")]
@@ -744,9 +806,13 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("genre_ids")]
         public System.Collections.Generic.List<int> GenreIds { get; set; }
     }
-    public class MovieDetails : MovieCollection.TheMovieDatabase.Models.BaseMovie
+    public class MovieDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public MovieDetails() { }
+        [Newtonsoft.Json.JsonProperty("adult")]
+        public bool Adult { get; set; }
+        [Newtonsoft.Json.JsonProperty("backdrop_path")]
+        public string BackdropPath { get; set; }
         [Newtonsoft.Json.JsonProperty("belongs_to_collection")]
         public MovieCollection.TheMovieDatabase.Models.Collection BelongsToCollection { get; set; }
         [Newtonsoft.Json.JsonProperty("budget")]
@@ -757,14 +823,28 @@ namespace MovieCollection.TheMovieDatabase.Models
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Genre> Genres { get; set; }
         [Newtonsoft.Json.JsonProperty("homepage")]
         public System.Uri Homepage { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
         [Newtonsoft.Json.JsonProperty("imdb_id")]
         public string ImdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("original_language")]
+        public string OriginalLanguage { get; set; }
+        [Newtonsoft.Json.JsonProperty("original_title")]
+        public string OriginalTitle { get; set; }
+        [Newtonsoft.Json.JsonProperty("overview")]
+        public string Overview { get; set; }
+        [Newtonsoft.Json.JsonProperty("popularity")]
+        public double Popularity { get; set; }
+        [Newtonsoft.Json.JsonProperty("poster_path")]
+        public string PosterPath { get; set; }
         [Newtonsoft.Json.JsonProperty("production_companies")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Organization> ProductionCompanies { get; set; }
         [Newtonsoft.Json.JsonProperty("production_countries")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.ProductionCountry> ProductionCountries { get; set; }
+        [Newtonsoft.Json.JsonProperty("release_date")]
+        public string ReleaseDate { get; set; }
         [Newtonsoft.Json.JsonProperty("release_dates")]
-        public MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.ReleaseDatesResult> ReleaseDates { get; set; }
+        public MovieCollection.TheMovieDatabase.Models.Items<MovieCollection.TheMovieDatabase.Models.ReleaseDatesResult> ReleaseDates { get; set; }
         [Newtonsoft.Json.JsonProperty("revenue")]
         public string Revenue { get; set; }
         [Newtonsoft.Json.JsonProperty("runtime")]
@@ -775,6 +855,14 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string Status { get; set; }
         [Newtonsoft.Json.JsonProperty("tagline")]
         public string Tagline { get; set; }
+        [Newtonsoft.Json.JsonProperty("title")]
+        public string Title { get; set; }
+        [Newtonsoft.Json.JsonProperty("video")]
+        public bool Video { get; set; }
+        [Newtonsoft.Json.JsonProperty("vote_average")]
+        public double VoteAverage { get; set; }
+        [Newtonsoft.Json.JsonProperty("vote_count")]
+        public int VoteCount { get; set; }
     }
     public class MovieList
     {
@@ -816,13 +904,21 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("title")]
         public string Title { get; set; }
     }
-    public class NetworkDetails : MovieCollection.TheMovieDatabase.Models.Organization
+    public class NetworkDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public NetworkDetails() { }
         [Newtonsoft.Json.JsonProperty("headquarters")]
         public string Headquarters { get; set; }
         [Newtonsoft.Json.JsonProperty("homepage")]
         public System.Uri Homepage { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("logo_path")]
+        public string LogoPath { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
+        [Newtonsoft.Json.JsonProperty("origin_country")]
+        public string OriginCountry { get; set; }
     }
     public class NewDiscoverMovie
     {
@@ -906,7 +1002,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("origin_country")]
         public string OriginCountry { get; set; }
     }
-    public class OrganizationImages
+    public class OrganizationImages : MovieCollection.TheMovieDatabase.Models.Response
     {
         public OrganizationImages() { }
         [Newtonsoft.Json.JsonProperty("id")]
@@ -914,7 +1010,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("logos")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Image> Logos { get; set; }
     }
-    public class PagedResult<T>
+    public class PagedResult<T> : MovieCollection.TheMovieDatabase.Models.Response
         where T :  class
     {
         public PagedResult() { }
@@ -939,9 +1035,13 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("order")]
         public int? Order { get; set; }
     }
-    public class PersonCombinedCredits : MovieCollection.TheMovieDatabase.Models.BasicCredits<MovieCollection.TheMovieDatabase.Models.PersonCombinedCast, MovieCollection.TheMovieDatabase.Models.PersonCombinedCrew>
+    public class PersonCombinedCredits : MovieCollection.TheMovieDatabase.Models.Response
     {
         public PersonCombinedCredits() { }
+        [Newtonsoft.Json.JsonProperty("cast")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.PersonCombinedCast> Cast { get; set; }
+        [Newtonsoft.Json.JsonProperty("crew")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.PersonCombinedCrew> Crew { get; set; }
         [Newtonsoft.Json.JsonProperty("id")]
         public int Id { get; set; }
     }
@@ -953,9 +1053,11 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("job")]
         public string Job { get; set; }
     }
-    public class PersonDetails : MovieCollection.TheMovieDatabase.Models.BasePerson
+    public class PersonDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public PersonDetails() { }
+        [Newtonsoft.Json.JsonProperty("adult")]
+        public bool Adult { get; set; }
         [Newtonsoft.Json.JsonProperty("also_known_as")]
         public System.Collections.Generic.List<string> AlsoKnownAs { get; set; }
         [Newtonsoft.Json.JsonProperty("biography")]
@@ -968,14 +1070,22 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string Gender { get; set; }
         [Newtonsoft.Json.JsonProperty("homepage")]
         public string Homepage { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
         [Newtonsoft.Json.JsonProperty("imdb_id")]
         public string ImdbId { get; set; }
         [Newtonsoft.Json.JsonProperty("known_for_department")]
         public string KnownForDepartment { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
         [Newtonsoft.Json.JsonProperty("place_of_birth")]
         public string PlaceOfBirth { get; set; }
+        [Newtonsoft.Json.JsonProperty("popularity")]
+        public double Popularity { get; set; }
+        [Newtonsoft.Json.JsonProperty("profile_path")]
+        public string ProfilePath { get; set; }
     }
-    public class PersonImageResult
+    public class PersonImageResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public PersonImageResult() { }
         [Newtonsoft.Json.JsonProperty("id")]
@@ -995,9 +1105,13 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("order")]
         public int Order { get; set; }
     }
-    public class PersonMovieCredits : MovieCollection.TheMovieDatabase.Models.BasicCredits<MovieCollection.TheMovieDatabase.Models.PersonMovieCast, MovieCollection.TheMovieDatabase.Models.PersonMovieCrew>
+    public class PersonMovieCredits : MovieCollection.TheMovieDatabase.Models.Response
     {
         public PersonMovieCredits() { }
+        [Newtonsoft.Json.JsonProperty("cast")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.PersonMovieCast> Cast { get; set; }
+        [Newtonsoft.Json.JsonProperty("crew")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.PersonMovieCrew> Crew { get; set; }
         [Newtonsoft.Json.JsonProperty("id")]
         public int Id { get; set; }
     }
@@ -1025,9 +1139,13 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("genre_ids")]
         public System.Collections.Generic.List<int> GenreIds { get; set; }
     }
-    public class PersonTVShowCredits : MovieCollection.TheMovieDatabase.Models.BasicCredits<MovieCollection.TheMovieDatabase.Models.PersonTVShowCast, MovieCollection.TheMovieDatabase.Models.PersonTVShowCrew>
+    public class PersonTVShowCredits : MovieCollection.TheMovieDatabase.Models.Response
     {
         public PersonTVShowCredits() { }
+        [Newtonsoft.Json.JsonProperty("cast")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.PersonTVShowCast> Cast { get; set; }
+        [Newtonsoft.Json.JsonProperty("crew")]
+        public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.PersonTVShowCrew> Crew { get; set; }
         [Newtonsoft.Json.JsonProperty("id")]
         public int Id { get; set; }
     }
@@ -1099,7 +1217,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("release_dates")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.ReleaseDate> ReleaseDates { get; set; }
     }
-    public class RequestTokenResult : MovieCollection.TheMovieDatabase.Models.BasicSessionResult
+    public class RequestTokenResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public RequestTokenResult() { }
         [Newtonsoft.Json.JsonProperty("expires_at")]
@@ -1114,6 +1232,8 @@ namespace MovieCollection.TheMovieDatabase.Models
         public int StatusCode { get; set; }
         [Newtonsoft.Json.JsonProperty("status_message")]
         public string StatusMessage { get; set; }
+        [Newtonsoft.Json.JsonProperty("success")]
+        public bool Success { get; set; }
     }
     public class Review
     {
@@ -1139,11 +1259,17 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("username")]
         public string Username { get; set; }
     }
-    public class ReviewDetails : MovieCollection.TheMovieDatabase.Models.Review
+    public class ReviewDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public ReviewDetails() { }
+        [Newtonsoft.Json.JsonProperty("author")]
+        public string Author { get; set; }
         [Newtonsoft.Json.JsonProperty("author_details")]
         public MovieCollection.TheMovieDatabase.Models.ReviewAuthorDetails AuthorDetails { get; set; }
+        [Newtonsoft.Json.JsonProperty("content")]
+        public string Content { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public string Id { get; set; }
         [Newtonsoft.Json.JsonProperty("iso_639_1")]
         public string Iso6391 { get; set; }
         [Newtonsoft.Json.JsonProperty("media_id")]
@@ -1152,6 +1278,8 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string MediaTitle { get; set; }
         [Newtonsoft.Json.JsonProperty("media_type")]
         public string MediaType { get; set; }
+        [Newtonsoft.Json.JsonProperty("url")]
+        public System.Uri Url { get; set; }
     }
     public class ReviewResult : MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Review>
     {
@@ -1197,11 +1325,23 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("show_id")]
         public int ShowId { get; set; }
     }
-    public class SeasonDetails : MovieCollection.TheMovieDatabase.Models.BaseSeason
+    public class SeasonDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public SeasonDetails() { }
+        [Newtonsoft.Json.JsonProperty("air_date")]
+        public string AirDate { get; set; }
         [Newtonsoft.Json.JsonProperty("episodes")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.SeasonEpisode> Episodes { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
+        [Newtonsoft.Json.JsonProperty("overview")]
+        public string Overview { get; set; }
+        [Newtonsoft.Json.JsonProperty("poster_path")]
+        public string PosterPath { get; set; }
+        [Newtonsoft.Json.JsonProperty("season_number")]
+        public int SeasonNumber { get; set; }
     }
     public class SeasonEpisode : MovieCollection.TheMovieDatabase.Models.BaseEpisode
     {
@@ -1211,7 +1351,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("guest_stars")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Cast> GuestStars { get; set; }
     }
-    public class SeasonExternalIds
+    public class SeasonExternalIds : MovieCollection.TheMovieDatabase.Models.Response
     {
         public SeasonExternalIds() { }
         [Newtonsoft.Json.JsonProperty("freebase_id")]
@@ -1228,7 +1368,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [System.Obsolete("Defunct or no longer available as a service.")]
         public int? TvrageId { get; set; }
     }
-    public class SeasonImagesResult
+    public class SeasonImagesResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public SeasonImagesResult() { }
         [Newtonsoft.Json.JsonProperty("id")]
@@ -1244,7 +1384,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("overview")]
         public string Overview { get; set; }
     }
-    public class SessionResult : MovieCollection.TheMovieDatabase.Models.BasicSessionResult
+    public class SessionResult : MovieCollection.TheMovieDatabase.Models.Response
     {
         public SessionResult() { }
         [Newtonsoft.Json.JsonProperty("session_id")]
@@ -1264,11 +1404,13 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("genre_ids")]
         public System.Collections.Generic.List<int> GenreIds { get; set; }
     }
-    public class TVShowDetails : MovieCollection.TheMovieDatabase.Models.BaseTVShow
+    public class TVShowDetails : MovieCollection.TheMovieDatabase.Models.Response
     {
         public TVShowDetails() { }
+        [Newtonsoft.Json.JsonProperty("backdrop_path")]
+        public string BackdropPath { get; set; }
         [Newtonsoft.Json.JsonProperty("content_ratings")]
-        public MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.ContentRatings> ContentRatings { get; set; }
+        public MovieCollection.TheMovieDatabase.Models.Items<MovieCollection.TheMovieDatabase.Models.ContentRatings> ContentRatings { get; set; }
         [Newtonsoft.Json.JsonProperty("created_by")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.BaseCredit> CreatedBy { get; set; }
         [Newtonsoft.Json.JsonProperty("credits")]
@@ -1277,10 +1419,14 @@ namespace MovieCollection.TheMovieDatabase.Models
         public System.Collections.Generic.List<int> EpisodeRunTime { get; set; }
         [Newtonsoft.Json.JsonProperty("external_ids")]
         public MovieCollection.TheMovieDatabase.Models.TVShowExternalIds ExternalIds { get; set; }
+        [Newtonsoft.Json.JsonProperty("first_air_date")]
+        public string FirstAirDate { get; set; }
         [Newtonsoft.Json.JsonProperty("genres")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Genre> Genres { get; set; }
         [Newtonsoft.Json.JsonProperty("homepage")]
         public System.Uri Homepage { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
         [Newtonsoft.Json.JsonProperty("in_production")]
         public bool InProduction { get; set; }
         [Newtonsoft.Json.JsonProperty("languages")]
@@ -1289,6 +1435,8 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string LastAirDate { get; set; }
         [Newtonsoft.Json.JsonProperty("last_episode_to_air")]
         public MovieCollection.TheMovieDatabase.Models.BaseEpisode LastEpisodeToAir { get; set; }
+        [Newtonsoft.Json.JsonProperty("name")]
+        public string Name { get; set; }
         [Newtonsoft.Json.JsonProperty("networks")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Organization> Networks { get; set; }
         [Newtonsoft.Json.JsonProperty("next_episode_to_air")]
@@ -1297,6 +1445,18 @@ namespace MovieCollection.TheMovieDatabase.Models
         public int NumberOfEpisodes { get; set; }
         [Newtonsoft.Json.JsonProperty("number_of_seasons")]
         public int NumberOfSeasons { get; set; }
+        [Newtonsoft.Json.JsonProperty("origin_country")]
+        public System.Collections.Generic.List<string> OriginCountry { get; set; }
+        [Newtonsoft.Json.JsonProperty("original_language")]
+        public string OriginalLanguage { get; set; }
+        [Newtonsoft.Json.JsonProperty("original_name")]
+        public string OriginalName { get; set; }
+        [Newtonsoft.Json.JsonProperty("overview")]
+        public string Overview { get; set; }
+        [Newtonsoft.Json.JsonProperty("popularity")]
+        public double Popularity { get; set; }
+        [Newtonsoft.Json.JsonProperty("poster_path")]
+        public string PosterPath { get; set; }
         [Newtonsoft.Json.JsonProperty("production_companies")]
         public System.Collections.Generic.List<MovieCollection.TheMovieDatabase.Models.Organization> ProductionCompanies { get; set; }
         [Newtonsoft.Json.JsonProperty("seasons")]
@@ -1307,20 +1467,58 @@ namespace MovieCollection.TheMovieDatabase.Models
         public string Tagline { get; set; }
         [Newtonsoft.Json.JsonProperty("type")]
         public string Type { get; set; }
+        [Newtonsoft.Json.JsonProperty("vote_average")]
+        public double VoteAverage { get; set; }
+        [Newtonsoft.Json.JsonProperty("vote_count")]
+        public int VoteCount { get; set; }
     }
-    public class TVShowExternalIds : MovieCollection.TheMovieDatabase.Models.ExternalIds
+    public class TVShowExternalIds
     {
         public TVShowExternalIds() { }
+        [Newtonsoft.Json.JsonProperty("facebook_id")]
+        public string FacebookId { get; set; }
         [Newtonsoft.Json.JsonProperty("freebase_id")]
         [System.Obsolete("Defunct or no longer available as a service.")]
         public string FreebaseId { get; set; }
         [Newtonsoft.Json.JsonProperty("freebase_mid")]
         [System.Obsolete("Defunct or no longer available as a service.")]
         public string FreebaseMid { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdb_id")]
+        public string ImdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("instagram_id")]
+        public string InstagramId { get; set; }
         [Newtonsoft.Json.JsonProperty("tvdb_id")]
         public int? TvdbId { get; set; }
         [Newtonsoft.Json.JsonProperty("tvrage_id")]
         public int? TvrageId { get; set; }
+        [Newtonsoft.Json.JsonProperty("twitter_id")]
+        public string TwitterId { get; set; }
+    }
+    public class TVShowExternalIdsResult : MovieCollection.TheMovieDatabase.Models.Response
+    {
+        public TVShowExternalIdsResult() { }
+        [Newtonsoft.Json.JsonProperty("facebook_id")]
+        public string FacebookId { get; set; }
+        [Newtonsoft.Json.JsonProperty("freebase_id")]
+        [System.Obsolete("Defunct or no longer available as a service.")]
+        public string FreebaseId { get; set; }
+        [Newtonsoft.Json.JsonProperty("freebase_mid")]
+        [System.Obsolete("Defunct or no longer available as a service.")]
+        public string FreebaseMid { get; set; }
+        [Newtonsoft.Json.JsonProperty("id")]
+        public int Id { get; set; }
+        [Newtonsoft.Json.JsonProperty("imdb_id")]
+        public string ImdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("instagram_id")]
+        public string InstagramId { get; set; }
+        [Newtonsoft.Json.JsonProperty("tvdb_id")]
+        public int? TvdbId { get; set; }
+        [Newtonsoft.Json.JsonProperty("tvrage_id")]
+        public int? TvrageId { get; set; }
+        [Newtonsoft.Json.JsonProperty("twitter_id")]
+        public string TwitterId { get; set; }
     }
     public class TVShowTranslationData
     {
@@ -1349,7 +1547,7 @@ namespace MovieCollection.TheMovieDatabase.Models
         [Newtonsoft.Json.JsonProperty("name")]
         public string Name { get; set; }
     }
-    public class TranslationsResult<TData>
+    public class TranslationsResult<TData> : MovieCollection.TheMovieDatabase.Models.Response
         where TData :  class
     {
         public TranslationsResult() { }

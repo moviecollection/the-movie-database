@@ -3,10 +3,22 @@
     using System;
     using Newtonsoft.Json;
 
-    public class SeasonExternalIds : Response
+    public class TVShowExternalIdsResult : Response
     {
         [JsonProperty("id")]
         public int Id { get; set; }
+
+        [JsonProperty("imdb_id")]
+        public string ImdbId { get; set; }
+
+        [JsonProperty("facebook_id")]
+        public string FacebookId { get; set; }
+
+        [JsonProperty("instagram_id")]
+        public string InstagramId { get; set; }
+
+        [JsonProperty("twitter_id")]
+        public string TwitterId { get; set; }
 
         [JsonProperty("freebase_mid")]
         [Obsolete("Defunct or no longer available as a service.")]
@@ -20,7 +32,6 @@
         public int? TvdbId { get; set; }
 
         [JsonProperty("tvrage_id")]
-        [Obsolete("Defunct or no longer available as a service.")]
         public int? TvrageId { get; set; }
     }
 }

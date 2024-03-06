@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class BasicResult<T>
+    public class BasicResult<T> : Response
         where T : class
     {
         [JsonProperty("id")]

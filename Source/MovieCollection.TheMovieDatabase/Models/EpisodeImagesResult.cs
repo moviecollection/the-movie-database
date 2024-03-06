@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class EpisodeImagesResult
+    public class EpisodeImagesResult : Response
     {
         [JsonProperty("id")]
         public int Id { get; set; }

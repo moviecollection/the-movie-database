@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class SessionResult : BasicSessionResult
+    public class SessionResult : Response
     {
         [JsonProperty("session_id")]
         public string SessionId { get; set; }

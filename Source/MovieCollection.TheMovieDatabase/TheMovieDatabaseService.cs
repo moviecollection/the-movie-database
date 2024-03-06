@@ -440,7 +440,7 @@
         /// </summary>
         /// <param name="sessionId">A valid session id.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<BasicSessionResult> DeleteSessionAsync(string sessionId)
+        public Task<Response> DeleteSessionAsync(string sessionId)
         {
             if (string.IsNullOrWhiteSpace(sessionId))
             {
@@ -452,7 +452,7 @@
                 session_id = sessionId,
             };
 
-            return DeleteJsonAsync<BasicSessionResult>("/authentication/session", request);
+            return DeleteJsonAsync<Response>("/authentication/session", request);
         }
 
         /// <summary>
@@ -752,9 +752,9 @@
         /// </summary>
         /// <param name="keywordId">Id of the keyword.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<Keyword> GetKeywordDetailsAsync(int keywordId)
+        public Task<KeywordDetails> GetKeywordDetailsAsync(int keywordId)
         {
-            return GetJsonAsync<Keyword>($"/keyword/{keywordId}");
+            return GetJsonAsync<KeywordDetails>($"/keyword/{keywordId}");
         }
 
         /// <summary>
@@ -1536,9 +1536,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<Credits> GetTVShowCreditsAsync(int tvShowId)
+        public Task<CreditsResult> GetTVShowCreditsAsync(int tvShowId)
         {
-            return GetJsonAsync<Credits>($"/tv/{tvShowId}/credits");
+            return GetJsonAsync<CreditsResult>($"/tv/{tvShowId}/credits");
         }
 
         /// <summary>
@@ -1559,9 +1559,9 @@
         /// </summary>
         /// <param name="tvShowId">Id of the TV show.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task<TVShowExternalIds> GetTVShowExternalIdsAsync(int tvShowId)
+        public Task<TVShowExternalIdsResult> GetTVShowExternalIdsAsync(int tvShowId)
         {
-            return GetJsonAsync<TVShowExternalIds>($"/tv/{tvShowId}/external_ids");
+            return GetJsonAsync<TVShowExternalIdsResult>($"/tv/{tvShowId}/external_ids");
         }
 
         /// <summary>
@@ -2064,6 +2064,7 @@
         }
 
         private async Task<T> DeleteJsonAsync<T>(string requestUrl, object obj)
+            where T : Response
         {
             using var request = CreateRequest(HttpMethod.Delete, requestUrl, null);
 
@@ -2075,6 +2076,7 @@
         }
 
         private async Task<T> DeleteJsonAsync<T>(string requestUrl, Dictionary<string, object> parameters)
+            where T : Response
         {
             using var request = CreateRequest(HttpMethod.Delete, requestUrl, parameters);
 
@@ -2083,6 +2085,7 @@
         }
 
         private async Task<T> PostJsonAsync<T>(string requestUrl, object obj)
+            where T : Response
         {
             using var request = CreateRequest(HttpMethod.Post, requestUrl, null);
 
@@ -2094,6 +2097,7 @@
         }
 
         private async Task<T> PostJsonAsync<T>(string requestUrl, Dictionary<string, object> parameters, object obj)
+            where T : Response
         {
             using var request = CreateRequest(HttpMethod.Post, requestUrl, parameters);
 
@@ -2105,6 +2109,7 @@
         }
 
         private async Task<T> GetJsonAsync<T>(string requestUrl, Dictionary<string, object> parameters = null)
+            where T : Response
         {
             using var request = CreateRequest(HttpMethod.Get, requestUrl, parameters);
 
@@ -2140,6 +2145,7 @@
         }
 
         private async Task<T> SendRequestAsync<T>(HttpRequestMessage request)
+            where T : Response
         {
             // Set the user agent if it was explicitly set via the options.
             // This overrides the default request headers.

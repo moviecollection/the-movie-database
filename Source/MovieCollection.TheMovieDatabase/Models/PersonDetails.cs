@@ -3,8 +3,23 @@
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class PersonDetails : BasePerson
+    public class PersonDetails : Response
     {
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("popularity")]
+        public double Popularity { get; set; }
+
+        [JsonProperty("profile_path")]
+        public string ProfilePath { get; set; }
+
+        [JsonProperty("adult")]
+        public bool Adult { get; set; }
+
         [JsonProperty("birthday")]
         public string Birthday { get; set; }
 

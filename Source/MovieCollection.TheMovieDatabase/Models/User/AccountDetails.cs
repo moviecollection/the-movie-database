@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class AccountDetails
+    public class AccountDetails : Response
     {
         [JsonProperty("id")]
         public int Id { get; set; }

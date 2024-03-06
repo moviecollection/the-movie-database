@@ -3,7 +3,7 @@
     using System;
     using Newtonsoft.Json;
 
-    public class EpisodeExternalIds
+    public class EpisodeExternalIds : Response
     {
         [JsonProperty("id")]
         public int Id { get; set; }

@@ -2,7 +2,7 @@
 {
     using Newtonsoft.Json;
 
-    public class RequestTokenResult : BasicSessionResult
+    public class RequestTokenResult : Response
     {
         [JsonProperty("expires_at")]
         public string ExpiresAt { get; set; }

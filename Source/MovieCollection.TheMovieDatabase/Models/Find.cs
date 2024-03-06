@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Newtonsoft.Json;
 
-    public class Find
+    public class Find : Response
     {
         [JsonProperty("movie_results")]
         public List<Movie> MovieResults { get; set; }
