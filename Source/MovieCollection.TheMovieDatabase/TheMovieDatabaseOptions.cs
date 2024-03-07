@@ -11,10 +11,10 @@
         /// Initializes a new instance of the <see cref="TheMovieDatabaseOptions"/> class.
         /// </summary>
         public TheMovieDatabaseOptions()
-            : base()
         {
             ApiAddress = "https://api.themoviedb.org/3";
             ImageAddress = "https://image.tmdb.org/t/p";
+            UseEnsureSuccessStatusCode = true;
         }
 
         /// <summary>
@@ -70,5 +70,10 @@
         /// This overrides the <see cref="System.Net.Http.HttpClient.DefaultRequestHeaders"/>.
         /// </remarks>
         public ProductHeaderValue ProductInformation { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether it should throw an exception if the request did not indicate success.
+        /// </summary>
+        public bool UseEnsureSuccessStatusCode { get; set; }
     }
 }

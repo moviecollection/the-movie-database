@@ -17,6 +17,7 @@ namespace MovieCollection.TheMovieDatabase
         public bool? IsAdultIncluded { get; set; }
         public string Language { get; set; }
         public System.Net.Http.Headers.ProductHeaderValue ProductInformation { get; set; }
+        public bool UseEnsureSuccessStatusCode { get; set; }
     }
     public class TheMovieDatabaseService
     {

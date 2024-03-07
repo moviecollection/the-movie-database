@@ -2157,7 +2157,10 @@
             using var response = await _httpClient.SendAsync(request)
                 .ConfigureAwait(false);
 
-            response.EnsureSuccessStatusCode();
+            if (_options.UseEnsureSuccessStatusCode)
+            {
+                response.EnsureSuccessStatusCode();
+            }
 
             string json = await response.Content.ReadAsStringAsync()
                 .ConfigureAwait(false);

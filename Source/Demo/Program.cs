@@ -409,9 +409,15 @@ Start:
             try
             {
                 var result = await _service.CreateSessionAsync("1234");
+
+                // When 'options.UseEnsureSuccessStatusCode' is false.
+                Console.WriteLine("Success: {0}", result.Success);
+                Console.WriteLine("StatusCode: {0}", result.StatusCode);
+                Console.WriteLine("StatusMessage: {0}", result.StatusMessage);
             }
             catch (HttpRequestException ex)
             {
+                // When 'options.UseEnsureSuccessStatusCode' is true.
                 Console.WriteLine(ex.Message);
             }
         }
