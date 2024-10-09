@@ -39,6 +39,7 @@
     <PropertyGroup>
         <Authors>Peyman Mohammadi</Authors>
         <Copyright>© 2022 Peyman Mohammadi</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageId>MovieCollection.TheMovieDatabase</PackageId>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>movie; series; api; wrapper; tmdb</PackageTags>
@@ -47,6 +48,10 @@
         <RepositoryUrl>https://github.com/moviecollection/the-movie-database</RepositoryUrl>
         <PackageProjectUrl>https://github.com/moviecollection/the-movie-database</PackageProjectUrl>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
         <Reference Include="System.Net.Http" />
