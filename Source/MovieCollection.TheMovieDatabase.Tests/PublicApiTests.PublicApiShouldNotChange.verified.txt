@@ -43,7 +43,7 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.RatedTVShow>> GetAccountRatedTVShowsAsync(int accountId, string sessionId, int? page = default) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.TVShow>> GetAccountTVShowWatchlistAsync(int accountId, string sessionId, int? page = default) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.TVShow>> GetAiringTodayTVShowsAsync(int page = 1) { }
-        public string GetBackdropImageUrl(string filename, MovieCollection.TheMovieDatabase.Enums.BackdropSize size = 2) { }
+        public string GetBackdropImageUrl(string filePath, MovieCollection.TheMovieDatabase.Enums.BackdropSize size = 2) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CollectionDetails> GetCollectionDetailsAsync(int collectionId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.ImagesResult> GetCollectionImagesAsync(int collectionId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.TranslationsResult<MovieCollection.TheMovieDatabase.Models.CollectionTranslationData>> GetCollectionTranslationsAsync(int collectionId) { }
@@ -56,7 +56,7 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.MovieDetails> GetLatestMovieAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PersonDetails> GetLatestPersonAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.TVShowDetails> GetLatestTVShowAsync() { }
-        public string GetLogoImageUrl(string filename, MovieCollection.TheMovieDatabase.Enums.LogoSize size = 4) { }
+        public string GetLogoImageUrl(string filePath, MovieCollection.TheMovieDatabase.Enums.LogoSize size = 4) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.AlternativeTitle>> GetMovieAlternativeTitlesAsync(int movieId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CertificationsResult> GetMovieCertificationsAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CreditsResult> GetMovieCreditsAsync(int movieId) { }
@@ -87,12 +87,12 @@ namespace MovieCollection.TheMovieDatabase
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> GetPopularMoviesAsync(int page = 1, string region = null) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Person>> GetPopularPeopleAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.TVShow>> GetPopularTVShowsAsync(int page = 1) { }
-        public string GetPosterImageUrl(string filename, MovieCollection.TheMovieDatabase.Enums.PosterSize size = 4) { }
-        public string GetProfileImageUrl(string filename, MovieCollection.TheMovieDatabase.Enums.ProfileSize size = 1) { }
+        public string GetPosterImageUrl(string filePath, MovieCollection.TheMovieDatabase.Enums.PosterSize size = 4) { }
+        public string GetProfileImageUrl(string filePath, MovieCollection.TheMovieDatabase.Enums.ProfileSize size = 1) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.ReviewDetails> GetReviewDetailsAsync(string reviewId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> GetSimilarMoviesAsync(int movieId, int page = 1) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.PagedResult<MovieCollection.TheMovieDatabase.Models.Movie>> GetSimilarTVShowsAsync(int tvShowId, int page = 1) { }
-        public string GetStillImageUrl(string filename, MovieCollection.TheMovieDatabase.Enums.StillSize size = 2) { }
+        public string GetStillImageUrl(string filePath, MovieCollection.TheMovieDatabase.Enums.StillSize size = 2) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.AlternativeTitle>> GetTVShowAlternativeTitlesAsync(int tvShowId) { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.CertificationsResult> GetTVShowCertificationsAsync() { }
         public System.Threading.Tasks.Task<MovieCollection.TheMovieDatabase.Models.BasicResult<MovieCollection.TheMovieDatabase.Models.ContentRatings>> GetTVShowContentRatingsAsync(int tvShowId) { }

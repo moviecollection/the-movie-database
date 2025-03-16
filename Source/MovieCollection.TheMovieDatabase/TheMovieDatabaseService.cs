@@ -2008,62 +2008,62 @@
         /// <summary>
         /// Get url of a poster image.
         /// </summary>
-        /// <param name="filename">Poster file name.</param>
-        /// <param name="size">Size of the poster.</param>
-        /// <returns>A string containing full path of the poster.</returns>
+        /// <param name="filePath">Poster image relative file path.</param>
+        /// <param name="size">Size of the poster image.</param>
+        /// <returns>A string containing full path of the poster image.</returns>
         /// <exception cref="ArgumentException">
-        /// <paramref name="filename" /> should not be null or empty.
+        /// <paramref name="filePath" /> should not be null or empty.
         /// </exception>
-        public string GetPosterImageUrl(string filename, PosterSize size = PosterSize.W500)
-            => GetImageUrl(filename, size.ToString());
+        public string GetPosterImageUrl(string filePath, PosterSize size = PosterSize.W500)
+            => GetImageUrl(filePath, size.ToString());
 
         /// <summary>
         /// Get url of a backdrop image.
         /// </summary>
-        /// <param name="filename">Backdrop file name.</param>
-        /// <param name="size">Size of the backdrop.</param>
-        /// <returns>A string containing full path of the backdrop.</returns>
+        /// <param name="filePath">Backdrop image relative file path.</param>
+        /// <param name="size">Size of the backdrop image.</param>
+        /// <returns>A string containing full path of the backdrop image.</returns>
         /// <exception cref="ArgumentException">
-        /// <paramref name="filename" /> should not be null or empty.
+        /// <paramref name="filePath" /> should not be null or empty.
         /// </exception>
-        public string GetBackdropImageUrl(string filename, BackdropSize size = BackdropSize.W1280)
-            => GetImageUrl(filename, size.ToString());
+        public string GetBackdropImageUrl(string filePath, BackdropSize size = BackdropSize.W1280)
+            => GetImageUrl(filePath, size.ToString());
 
         /// <summary>
         /// Get url of a profile image.
         /// </summary>
-        /// <param name="filename">Profile image file name.</param>
+        /// <param name="filePath">Profile image relative file path.</param>
         /// <param name="size">Size of the profile image.</param>
         /// <returns>A string containing full path of the profile image.</returns>
         /// <exception cref="ArgumentException">
-        /// <paramref name="filename" /> should not be null or empty.
+        /// <paramref name="filePath" /> should not be null or empty.
         /// </exception>
-        public string GetProfileImageUrl(string filename, ProfileSize size = ProfileSize.W185)
-            => GetImageUrl(filename, size.ToString());
+        public string GetProfileImageUrl(string filePath, ProfileSize size = ProfileSize.W185)
+            => GetImageUrl(filePath, size.ToString());
 
         /// <summary>
         /// Get url of a still image.
         /// </summary>
-        /// <param name="filename">Still image file name.</param>
+        /// <param name="filePath">Still image relative file path.</param>
         /// <param name="size">Size of the still image.</param>
         /// <returns>A string containing full path of the still image.</returns>
         /// <exception cref="ArgumentException">
-        /// <paramref name="filename" /> should not be null or empty.
+        /// <paramref name="filePath" /> should not be null or empty.
         /// </exception>
-        public string GetStillImageUrl(string filename, StillSize size = StillSize.W300)
-            => GetImageUrl(filename, size.ToString());
+        public string GetStillImageUrl(string filePath, StillSize size = StillSize.W300)
+            => GetImageUrl(filePath, size.ToString());
 
         /// <summary>
         /// Get url of a logo image.
         /// </summary>
-        /// <param name="filename">Logo image file name.</param>
+        /// <param name="filePath">Logo image relative file path.</param>
         /// <param name="size">Size of the logo image.</param>
         /// <returns>A string containing full path of the logo image.</returns>
         /// <exception cref="ArgumentException">
-        /// <paramref name="filename" /> should not be null or empty.
+        /// <paramref name="filePath" /> should not be null or empty.
         /// </exception>
-        public string GetLogoImageUrl(string filename, LogoSize size = LogoSize.W300)
-            => GetImageUrl(filename, size.ToString());
+        public string GetLogoImageUrl(string filePath, LogoSize size = LogoSize.W300)
+            => GetImageUrl(filePath, size.ToString());
 
         private string GetImageUrl(string filePath, string size)
         {
