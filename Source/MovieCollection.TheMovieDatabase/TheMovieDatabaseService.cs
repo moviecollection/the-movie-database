@@ -2011,8 +2011,11 @@
         /// <param name="filename">Poster file name.</param>
         /// <param name="size">Size of the poster.</param>
         /// <returns>A string containing full path of the poster.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filename" /> should not be null or empty.
+        /// </exception>
         public string GetPosterImageUrl(string filename, PosterSize size = PosterSize.W500)
-            => $"{_options.ImageAddress}/{size.ToString().ToLowerInvariant()}{filename}";
+            => GetImageUrl(filename, size.ToString());
 
         /// <summary>
         /// Get url of a backdrop image.
@@ -2020,8 +2023,11 @@
         /// <param name="filename">Backdrop file name.</param>
         /// <param name="size">Size of the backdrop.</param>
         /// <returns>A string containing full path of the backdrop.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filename" /> should not be null or empty.
+        /// </exception>
         public string GetBackdropImageUrl(string filename, BackdropSize size = BackdropSize.W1280)
-            => $"{_options.ImageAddress}/{size.ToString().ToLowerInvariant()}{filename}";
+            => GetImageUrl(filename, size.ToString());
 
         /// <summary>
         /// Get url of a profile image.
@@ -2029,8 +2035,11 @@
         /// <param name="filename">Profile image file name.</param>
         /// <param name="size">Size of the profile image.</param>
         /// <returns>A string containing full path of the profile image.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filename" /> should not be null or empty.
+        /// </exception>
         public string GetProfileImageUrl(string filename, ProfileSize size = ProfileSize.W185)
-            => $"{_options.ImageAddress}/{size.ToString().ToLowerInvariant()}{filename}";
+            => GetImageUrl(filename, size.ToString());
 
         /// <summary>
         /// Get url of a still image.
@@ -2038,8 +2047,11 @@
         /// <param name="filename">Still image file name.</param>
         /// <param name="size">Size of the still image.</param>
         /// <returns>A string containing full path of the still image.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filename" /> should not be null or empty.
+        /// </exception>
         public string GetStillImageUrl(string filename, StillSize size = StillSize.W300)
-            => $"{_options.ImageAddress}/{size.ToString().ToLowerInvariant()}{filename}";
+            => GetImageUrl(filename, size.ToString());
 
         /// <summary>
         /// Get url of a logo image.
@@ -2047,8 +2059,21 @@
         /// <param name="filename">Logo image file name.</param>
         /// <param name="size">Size of the logo image.</param>
         /// <returns>A string containing full path of the logo image.</returns>
+        /// <exception cref="ArgumentException">
+        /// <paramref name="filename" /> should not be null or empty.
+        /// </exception>
         public string GetLogoImageUrl(string filename, LogoSize size = LogoSize.W300)
-            => $"{_options.ImageAddress}/{size.ToString().ToLowerInvariant()}{filename}";
+            => GetImageUrl(filename, size.ToString());
+
+        private string GetImageUrl(string filePath, string size)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                throw new ArgumentException($"'{nameof(filePath)}' cannot be null or empty.", nameof(filePath));
+            }
+
+            return $"{_options.ImageAddress}/{size.ToLowerInvariant()}{filePath}";
+        }
 
         private static string GetParametersString(Dictionary<string, object> parameters)
         {
