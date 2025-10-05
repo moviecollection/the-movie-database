@@ -3,7 +3,7 @@ var configuration = Argument("configuration", "Release");
 
 var version = Argument("package-version", "");
 
-var solution = "./Source/MovieCollection.TheMovieDatabase.sln";
+var solution = "./Source/MovieCollection.TheMovieDatabase.slnx";
 var artifacts = "./.artifacts";
 
 Task("Clean")

@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../README.md" />
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="Demo/Demo.csproj" />
+  <Project Path="MovieCollection.TheMovieDatabase.Tests/MovieCollection.TheMovieDatabase.Tests.csproj" />
+  <Project Path="MovieCollection.TheMovieDatabase/MovieCollection.TheMovieDatabase.csproj" />
+</Solution>
